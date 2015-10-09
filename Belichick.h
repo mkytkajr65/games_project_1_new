@@ -9,13 +9,16 @@
 
 namespace belichickns
 {
+	const float BELICHICK_SCALE = .1;
     const int WIDTH = 32;                   // image width
     const int HEIGHT = 32;                  // image height
     const int X = GAME_WIDTH/2 - WIDTH/2;   // location on screen
     const int Y = GAME_HEIGHT;
+	const float SPEED = 100;                // 100 pixels per second
 	const int TEXTURE_COLS=2;
 	const int   START_FRAME = 1;        // starts at frame 1
     const int   END_FRAME = 1;          // no animation
+	const float BELICHICK_ANIMATION_DELAY = 0.2f;
 }
 
 class Belichick : public Entity
@@ -29,7 +32,7 @@ public:
     // inherited member functions
     virtual void draw();
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
-                            TextureManager *textureM);/*
-    void update(float frameTime);*/
+                            TextureManager *textureM);
+    void update(float frameTime);
 };
 
