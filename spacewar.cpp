@@ -86,8 +86,8 @@ void Spacewar::initialize(HWND hwnd)
 	belichickPos.yPos = belichick.getY();
 
 	
-	belichickVel.xVel = DEFAULT_SPEED;
-	belichickVel.yVel = DEFAULT_SPEED;
+	belichickVel.xVel = B_DEFAULT_SPEED;
+	belichickVel.yVel = B_DEFAULT_SPEED;
 
 	belichickAirTime = 0.0f;
 

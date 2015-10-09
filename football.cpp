@@ -11,7 +11,7 @@
 Football::Football() : Entity()
 {
 	srand(time(NULL));
-	int height = (int)(((BELICHICK_AIR_TIME_LIMIT*DEFAULT_SPEED) + (0.5*-9.8*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
+	int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-9.8*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
 	height = rand() % height;
 	spriteData.y = GAME_HEIGHT - height;
 	speedChange = rand() % MAX_FOOTBALL_SPEED_CHANGE;
