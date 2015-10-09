@@ -10,10 +10,10 @@
 namespace belichickns
 {
 	const float BELICHICK_SCALE = .1;
-    const int WIDTH = 32;                   // image width
-    const int HEIGHT = 32;                  // image height
+    const int WIDTH = 1024;                   // image width
+    const int HEIGHT = 1024;                  // image height
     const int X = GAME_WIDTH/2 - WIDTH/2;   // location on screen
-    const int Y = GAME_HEIGHT;
+    const int Y = GAME_HEIGHT-HEIGHT;
 	const float SPEED = 100;                // 100 pixels per second
 	const int TEXTURE_COLS=2;
 	const int   START_FRAME = 1;        // starts at frame 1
@@ -25,6 +25,7 @@ class Belichick : public Entity
 {
 private:
 	bool hasLinemen;
+	int speedChange;
 public:
     // constructor
     Belichick();

@@ -37,7 +37,7 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error init my image"));
 	//
 	if (!bel.initialize(this, belichickns::WIDTH, belichickns::HEIGHT, 2, &belichickTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet"));
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Belichick"));
 	//
 	myImage.setX(GAME_WIDTH/2 - (myImage.getWidth()*MY_IMAGE_SCALE)/2);
 	myImage.setY(GAME_HEIGHT/2 - (myImage.getHeight()*MY_IMAGE_SCALE)/2);
@@ -240,7 +240,7 @@ void Spacewar::render()
 	belichick.draw();
 	f1.draw();
 	f2.draw();
-
+	//bel.draw();
     graphics->spriteEnd();                  // end drawing sprites
 }
 
