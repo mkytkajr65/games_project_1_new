@@ -11,13 +11,16 @@
 Football::Football() : Entity()
 {
 	srand(time(NULL));
+	int height = (int)(((BELICHICK_AIR_TIME_LIMIT*DEFAULT_SPEED) + (0.5*-9.8*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
+	height = rand() % height;
+	spriteData.y = GAME_HEIGHT - height;
+	speedChange = rand() % MAX_FOOTBALL_SPEED_CHANGE;
     spriteData.width = footballNS::WIDTH;           // size of Football
     spriteData.height = footballNS::HEIGHT;
     spriteData.x = footballNS::X;                   // location on screen
-    spriteData.y = footballNS::Y;
     spriteData.rect.bottom = footballNS::HEIGHT;    // rectangle to select parts of an image
     spriteData.rect.right = footballNS::WIDTH;
-    velocity.x = 300;                             // velocity X
+	velocity.x = footballNS::X_SPEED;                           // velocity X
     velocity.y = 0;                             // velocity Y
     frameDelay = footballNS::FOOTBALL_ANIMATION_DELAY;
     //startFrame = footballNS::SHIP1_START_FRAME;     // first frame of football animation
@@ -27,6 +30,8 @@ Football::Football() : Entity()
     //shieldOn = false;
     mass = footballNS::MASS;
     collisionType = entityNS::CIRCLE;
+
+	
 }
 
 //=============================================================================
@@ -61,14 +66,20 @@ void Football::update(float frameTime)
 	if(spriteData.x >= GAME_WIDTH)
 	{
 		//calculate height Belichick can reach
-		int height = (int)(((BELICHICK_AIR_TIME_LIMIT*DEFAULT_SPEED) + (0.5*-9.8*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
+		int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-9.8*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
 		height = rand() % height;
 		spriteData.x = 0;
 		spriteData.y = GAME_HEIGHT - height;
-		char msgbuf[2048];
+		std::normal_distribution<double> distribution(100.0,25.0);
+		int val = (int)distribution(generator);
+		if(rand()%2==0)val *= -1;
 
-		sprintf(msgbuf, "My variable is %d\n", height);
+		velocity.x = footballNS::X_SPEED + val;
+		char msgbuf[2048];
+		
+		sprintf(msgbuf, "My variable is %d\n", val);
 		OutputDebugStringA(msgbuf);
+		speedChange = rand() % MAX_FOOTBALL_SPEED_CHANGE;
 	}
 }
 

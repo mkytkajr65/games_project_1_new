@@ -49,8 +49,9 @@ const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 fr
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 const float Y_SPEED = 0.4;
 const UINT FLOOR_HEIGHT = 50;
-const float DEFAULT_SPEED = 150;
+const float B_DEFAULT_SPEED = 150;
 const float BELICHICK_AIR_TIME_LIMIT = 2.0;
+const int MAX_FOOTBALL_SPEED_CHANGE = 150;
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used

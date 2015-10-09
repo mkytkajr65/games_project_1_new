@@ -10,6 +10,7 @@
 #include "entity.h"
 #include "constants.h"
 #include <ctime>
+#include <random>
 
 namespace footballNS
 {
@@ -19,7 +20,7 @@ namespace footballNS
     const int X = 0;   // location on screen
     const int Y = GAME_HEIGHT/2 - HEIGHT/2;
     const float ROTATION_RATE = (float)PI/4; // radians per second
-    const float SPEED = 100;                // 100 pixels per second
+    const float X_SPEED = 200;                // 100 pixels per second
     const float MASS = 300.0f;              // mass
     const int   TEXTURE_COLS = 8;           // texture has 8 columns
     //const int   SHIP1_START_FRAME = 0;      // ship1 starts at frame 0
@@ -35,16 +36,20 @@ namespace footballNS
 // inherits from Entity class
 class Football : public Entity
 {
-
+private:
+	int speedChange;
 public:
     // constructor
     Football();
+	
 
     // inherited member functions
     virtual void draw();
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
                             TextureManager *textureM);
     void update(float frameTime);
+	std::normal_distribution<double> distribution;
+	std::default_random_engine generator;
     //void damage(WEAPON);
 };
 #endif

@@ -14,6 +14,7 @@
 #include "graphics.h"
 #include "Belichick.h"
 
+
 //=============================================================================
 // This class is the core of the game
 //=============================================================================
@@ -31,7 +32,7 @@ private:
 	float belichickYVel;
 	TextureManager belichickTexture, myImageTexture, f1Texture;
 	Image belichick, myImage;
-	Football f1;
+	Football f1,f2;
 	Belichick bel;
 
 

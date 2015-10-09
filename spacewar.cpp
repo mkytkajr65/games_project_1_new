@@ -50,6 +50,12 @@ void Spacewar::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 	
 	f1.setScale(footballNS::FOOTBALL_SCALE);
+
+	if (!f2.initialize(this, 0, 0,0, &f1Texture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
+	
+	f1.setScale(footballNS::FOOTBALL_SCALE);
+	f2.setScale(footballNS::FOOTBALL_SCALE);
 	
 	//Stuff for physics
 	myImagePos.xPos = myImage.getX();
@@ -98,6 +104,7 @@ void Spacewar::update()
 
 	belichick.update(frameTime);
 	f1.update(frameTime);
+	f2.update(frameTime);
 
 	float dirX=0;
 	float dirY=0;
@@ -166,7 +173,7 @@ void Spacewar::update()
 	{
 		//if on the ground
 		belichickAirTime = 0.0;
-		belichickVel.yVel = DEFAULT_SPEED;
+		belichickVel.yVel = B_DEFAULT_SPEED;
 		backDown = false;
 	}
 
@@ -232,6 +239,7 @@ void Spacewar::render()
 	myImage.draw();
 	belichick.draw();
 	f1.draw();
+	f2.draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }
