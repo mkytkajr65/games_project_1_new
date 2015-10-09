@@ -48,8 +48,7 @@ public:
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
                             TextureManager *textureM);
     void update(float frameTime);
-	std::normal_distribution<double> distribution;
-	std::default_random_engine generator;
+
     //void damage(WEAPON);
 };
 #endif

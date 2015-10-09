@@ -31,6 +31,8 @@ void Spacewar::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
 
+	srand(time(NULL));
+
 	if (!myImageTexture.initialize(graphics, MY_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My texture initialization failed"));
 	if (!myImage.initialize(graphics, 0,0,0, &myImageTexture))
@@ -50,6 +52,11 @@ void Spacewar::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 	
 	f1.setScale(footballNS::FOOTBALL_SCALE);
+
+	if (!f3.initialize(this, 0, 0,0, &f1Texture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
+	
+	f3.setScale(footballNS::FOOTBALL_SCALE);
 
 	if (!f2.initialize(this, 0, 0,0, &f1Texture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
@@ -105,6 +112,7 @@ void Spacewar::update()
 	belichick.update(frameTime);
 	f1.update(frameTime);
 	f2.update(frameTime);
+	f3.update(frameTime);
 
 	float dirX=0;
 	float dirY=0;
@@ -240,6 +248,7 @@ void Spacewar::render()
 	belichick.draw();
 	f1.draw();
 	f2.draw();
+	f3.draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }
