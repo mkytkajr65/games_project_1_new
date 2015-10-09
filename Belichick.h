@@ -26,6 +26,11 @@ class Belichick : public Entity
 private:
 	bool hasLinemen;
 	int speedChange;
+	float dirX;
+	float dirY;
+	int airTime;
+	bool backDown;
+	int counter;//This keeps track of how many footballs Belichick has dodged since the last time he was hit.
 public:
     // constructor
     Belichick();
@@ -35,5 +40,6 @@ public:
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
                             TextureManager *textureM);
     void update(float frameTime);
+	void setLinemen(bool has){hasLinemen=has;}
 };
 

@@ -1,6 +1,5 @@
 #include "Belichick.h"
 
-
 Belichick::Belichick()
 {
 	spriteData.width = belichickns::WIDTH;           // size of Belichick
@@ -14,8 +13,11 @@ Belichick::Belichick()
     frameDelay = belichickns::BELICHICK_ANIMATION_DELAY;
 	radius = belichickns::WIDTH/2.0;
     collisionType = entityNS::CIRCLE;
-
+	dirX = 0;
+	dirY = 0;//Belichick initially starts at rest.
 	hasLinemen = false;
+	airTime=0;
+	backDown=true;//Belichick starts on the ground.
 }
 void Belichick::draw()
 {
@@ -28,9 +30,6 @@ bool Belichick::initialize(Game *gamePtr, int width, int height, int ncols,
 }
 void Belichick::update(float frameTime)
 {
-	/*float dirX=0;
-	float dirY=0;
-
 	bool arrowLeft = input->isKeyDown(VK_LEFT)&&!input->isKeyDown(VK_RIGHT);
 	bool arrowRight = !input->isKeyDown(VK_LEFT)&&input->isKeyDown(VK_RIGHT);
 	bool arrowUp = input->isKeyDown(VK_UP)&&!input->isKeyDown(VK_DOWN);
@@ -38,7 +37,7 @@ void Belichick::update(float frameTime)
 
 	if(arrowLeft)//arrow left
 	{
-		if(belichick.getX() > 0)
+		if(spriteData.x > 0)
 		{
 			dirX = -1;
 		}
@@ -48,7 +47,7 @@ void Belichick::update(float frameTime)
 
 	if(arrowRight)//arrow right
 	{
-		if(belichick.getX() <= (GAME_WIDTH - (belichick.getWidth() * BELICHICK_IMAGE_SCALE)))
+		if(spriteData.x <= (GAME_WIDTH - (belichickns::WIDTH * BEL_SCALE)))
 		{
 			dirX = 1;
 		}
@@ -56,7 +55,7 @@ void Belichick::update(float frameTime)
 
 	if(arrowDown)//arrow down
 	{
-		if(belichick.getY() < (GAME_HEIGHT - (belichick.getHeight() * BELICHICK_IMAGE_SCALE)))
+		if(spriteData.y < (GAME_HEIGHT - (belichickns::HEIGHT * BEL_SCALE)))
 		{
 			dirY = 1;
 			backDown = true;
@@ -65,47 +64,47 @@ void Belichick::update(float frameTime)
 
 	if(arrowUp)//arrow up
 	{
-		if(belichick.getY() > 0 && belichickAirTime < BELICHICK_AIR_TIME_LIMIT)
+		if(spriteData.y > 0 && airTime < BELICHICK_AIR_TIME_LIMIT)
 		{
 			dirY = -1;
 		}
 	}
 
-	if(belichickAirTime >= BELICHICK_AIR_TIME_LIMIT || backDown)
+	if(airTime >= BELICHICK_AIR_TIME_LIMIT || backDown)
 	{
 		//if belichick has reached its max air time or its already going back down, GO DOWN
 		dirY = 1;
 		char msgbuf[2048];
 
-		sprintf(msgbuf, "Top height %f\n", belichick.getX());
+		sprintf(msgbuf, "Top height %f\n", spriteData.x);
 		OutputDebugStringA(msgbuf);
 	}
-	else if(belichickAirTime > 0.0 && belichickAirTime<BELICHICK_AIR_TIME_LIMIT && !arrowDown && !backDown)
+	else if(airTime > 0.0 && airTime<BELICHICK_AIR_TIME_LIMIT && !arrowDown && !backDown)
 	{
 		//else if belichick's air time is in flux and hes not going back down, GO UP
 		dirY = -1;
 	}
 
-	if(belichick.getY() < (GAME_HEIGHT - (belichick.getHeight() * BELICHICK_SCALE)))
+	if(spriteData.y < (GAME_HEIGHT - (belichickns::HEIGHT * BEL_SCALE)))
 	{
 		//increase airtime if in the air still
-		belichickAirTime += frameTime;
+		airTime += frameTime;
 	}
 	else
 	{
 		//if on the ground
-		belichickAirTime = 0.0;
-		belichickVel.yVel = B_DEFAULT_SPEED;
+		airTime = 0.0;
+		velocity.y = B_DEFAULT_SPEED;
 		backDown = false;
 	}
 
 	if(dirY==-1)//if hes going up
 	{
-		if((belichickVel.yVel - (9.8*frameTime)) > 0)belichickVel.yVel = belichickVel.yVel - (9.8*frameTime);
+		if((velocity.y - (9.8*frameTime)) > 0)velocity.y = velocity.y - (9.8*frameTime);
 	}
 	else if(dirY==1)//if hes going down
 	{
-		belichickVel.yVel = belichickVel.yVel + (9.8*frameTime);
+		velocity.y = velocity.y + (9.8*frameTime);
 	}
 	
 
