@@ -4,6 +4,7 @@
 // Chapter 6 ship.h v1.0
 #pragma once
 #define WIN32_LEAN_AND_MEAN
+#include "Lineman.h"
 #include "entity.h"
 #include "constants.h"
 
@@ -14,7 +15,6 @@ namespace belichickns
     const int HEIGHT = 128;                  // image height
     const int X = GAME_WIDTH/2 - WIDTH/2;   // location on screen
     const int Y = GAME_HEIGHT-HEIGHT-1;//*BEL_SCALE;
-	const float SPEED = 1;                // 100 pixels per second
 	const int TEXTURE_COLS=2;
 	const int   START_FRAME = 1;        // starts at frame 1
     const int   END_FRAME = 1;          // no animation
@@ -31,6 +31,8 @@ private:
 	double airTime;
 	bool backDown;
 	int counter;//This keeps track of how many footballs Belichick has dodged since the last time he was hit.
+	Lineman l;//left lineman
+	Lineman r;//right lineman
 public:
     // constructor
     Belichick();
@@ -40,6 +42,7 @@ public:
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
                             TextureManager *textureM);
     void update(float frameTime);
-	void setLinemen(bool has){hasLinemen=has;}
+	void giveLinemen();
+	//void removeLinemen();
 };
 

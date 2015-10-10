@@ -1,6 +1,7 @@
 #include "Belichick.h"
 
 Belichick::Belichick()
+:l(this,false), r(this, true)
 {
 	spriteData.width = belichickns::WIDTH*BEL_SCALE;           // size of Belichick
     spriteData.height = belichickns::HEIGHT*BEL_SCALE;
@@ -132,4 +133,8 @@ void Belichick::update(float frameTime)
 
 	spriteData.y = spriteData.y + (dirY * velocity.y) * frameTime;//set the Y position
 	spriteData.x = spriteData.x + (dirX * velocity.x) * frameTime;//set the X position*/
+}
+void Belichick::giveLinemen()
+{
+	hasLinemen=true;
 }
