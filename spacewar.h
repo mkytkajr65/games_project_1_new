@@ -30,11 +30,11 @@ private:
 
 	float belichickXVel;
 	float belichickYVel;
-	TextureManager belichickTexture, myImageTexture, f1Texture;
+	TextureManager belichickTexture, myImageTexture, f1Texture,linemanTexture;
 	Image belichick, myImage;
 	Football f1,f2,f3;
 	Belichick bel;
-
+	
 
 	struct position{
 		float xPos;

@@ -31,8 +31,9 @@ const char NEBULA_IMAGE[] = "..\\games_project_1_new\\pictures\\orion.jpg";  // 
 const char PLANET_IMAGE[] = "..\\games_project_1_new\\pictures\\planet.png"; // picture of planet
 const char SONY_IMAGE[] = "..\\games_project_1_new\\pictures\\sony.png";
 const char MY_IMAGE[] = "..\\games_project_1_new\\pictures\\1.png";
-const char BELICHICK_IMAGE[] = "..\\games_project_1_new\\pictures\\b.png";
+const char BELICHICK_IMAGE[] = "..\\games_project_1_new\\pictures\\bScaled.png";
 const char FOOTBALL_IMAGE[] = "..\\games_project_1_new\\pictures\\football.png";
+const char LINEMAN_IMAGE[] = "..\\games_project_1_new\\pictures\\lineman2.png";
 
 // window
 const char CLASS_NAME[] = "Spacewar";
@@ -49,9 +50,17 @@ const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 fr
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 const float Y_SPEED = 0.4;
 const UINT FLOOR_HEIGHT = 50;
+<<<<<<< HEAD
 const float B_DEFAULT_SPEED = 200;
 const float BELICHICK_AIR_TIME_LIMIT = 1.5;
 const int MAX_FOOTBALL_SPEED_CHANGE = 100;
+=======
+const float B_DEFAULT_SPEED =150;
+const float DEFAULT_SPEED = 80;
+const float BELICHICK_AIR_TIME_LIMIT = 2.0;
+const int MAX_FOOTBALL_SPEED_CHANGE = 150;
+const float BEL_SCALE =1;
+>>>>>>> origin/master
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
