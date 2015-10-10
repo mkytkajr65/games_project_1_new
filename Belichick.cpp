@@ -3,16 +3,18 @@
 Belichick::Belichick()
 :l(this,false), r(this, true)
 {
-	spriteData.width = belichickns::WIDTH*BEL_SCALE;           // size of Belichick
-    spriteData.height = belichickns::HEIGHT*BEL_SCALE;
+	spriteData.width = belichickns::WIDTH*belichickns::BEL_SCALE;           // size of Belichick
+    spriteData.height = belichickns::HEIGHT*belichickns::BEL_SCALE;
     spriteData.x = belichickns::X;                   // location on screen
     spriteData.y = belichickns::Y;
-    spriteData.rect.bottom = belichickns::HEIGHT*BEL_SCALE;    // rectangle to select parts of an image
-    spriteData.rect.right = belichickns::WIDTH*BEL_SCALE;
+    spriteData.rect.bottom = belichickns::HEIGHT*belichickns::BEL_SCALE;    // rectangle to select parts of an image
+    spriteData.rect.right = belichickns::WIDTH*belichickns::BEL_SCALE;
     velocity.x = B_DEFAULT_SPEED;                             // velocity X
-    velocity.y = 0;                             // velocity Y
+    velocity.y = 0;    
+	// velocity Y
+	this->setScale(belichickns::BEL_SCALE);
     frameDelay = belichickns::BELICHICK_ANIMATION_DELAY;
-	radius = (belichickns::WIDTH*BEL_SCALE)/2.0;
+	radius = (belichickns::WIDTH*belichickns::BEL_SCALE)/2.0;
     collisionType = entityNS::CIRCLE;
 	dirX = 0;
 	dirY = 0;//Belichick initially starts at rest.
@@ -52,7 +54,7 @@ void Belichick::update(float frameTime)
 
 	if(arrowRight)//arrow right
 	{
-		if(spriteData.x <= (GAME_WIDTH - (belichickns::WIDTH * BEL_SCALE)))
+		if(spriteData.x <= (GAME_WIDTH - (belichickns::WIDTH * belichickns::BEL_SCALE)))
 		{
 			dirX = 1;
 		}
@@ -60,7 +62,7 @@ void Belichick::update(float frameTime)
 
 	if(arrowDown)//arrow down
 	{
-		if(spriteData.y < (GAME_HEIGHT - (belichickns::HEIGHT * BEL_SCALE)))
+		if(spriteData.y < (GAME_HEIGHT - (belichickns::HEIGHT * belichickns::BEL_SCALE)))
 		{
 			dirY = 1;
 			backDown = true;
@@ -90,7 +92,7 @@ void Belichick::update(float frameTime)
 		dirY = -1;
 	}
 
-	if(spriteData.y < (GAME_HEIGHT - (belichickns::HEIGHT * BEL_SCALE)))
+	if(spriteData.y < (GAME_HEIGHT - (belichickns::HEIGHT * belichickns::BEL_SCALE)))
 	{
 		//increase airtime if in the air still
 		

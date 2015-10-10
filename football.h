@@ -14,7 +14,7 @@
 
 namespace footballNS
 {
-	const float FOOTBALL_SCALE = 0.3;
+	const float FOOTBALL_SCALE = 0.2;
     const int WIDTH = 32;                   // image width
     const int HEIGHT = 32;                  // image height
     const int X = 0;   // location on screen

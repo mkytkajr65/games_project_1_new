@@ -54,21 +54,17 @@ void Spacewar::initialize(HWND hwnd)
 	if (!f1Texture.initialize(graphics, FOOTBALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My football texture initialization failed"));
 
-	if (!f1.initialize(this, 0, 0,0, &f1Texture))
+	if (!f1.initialize(this, 0, 0, 0, &f1Texture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 	
-	f1.setScale(footballNS::FOOTBALL_SCALE);
 
-	if (!f3.initialize(this, 0, 0,0, &f1Texture))
+	if (!f3.initialize(this, 0, 0, 0, &f1Texture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 	
-	f3.setScale(footballNS::FOOTBALL_SCALE);
 
-	if (!f2.initialize(this, 0, 0,0, &f1Texture))
+	if (!f2.initialize(this,  0, 0, 0, &f1Texture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
-	
-	f1.setScale(footballNS::FOOTBALL_SCALE);
-	f2.setScale(footballNS::FOOTBALL_SCALE);
+
 	
 	//Stuff for physics
 	myImagePos.xPos = myImage.getX();

@@ -54,7 +54,6 @@ const float B_DEFAULT_SPEED = 200;
 const float BELICHICK_AIR_TIME_LIMIT = 1.5;
 const int MAX_FOOTBALL_SPEED_CHANGE = 100;
 const float DEFAULT_SPEED = 80;
-const float BEL_SCALE = 1;
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
