@@ -4,10 +4,11 @@
 Lineman::Lineman(Entity* e,bool isRight)
 {
 	this->e=e;
-	this->isRight;
+	this->isRight = isRight;
 	if(!isRight)
 		flipHorizontal(true);
 	setScale(linemanns::LINEMAN_SCALE);
+	width=linemanns::WIDTH*linemanns::LINEMAN_SCALE;
 }
 
 void Lineman::draw()
@@ -21,14 +22,13 @@ bool Lineman::initialize(Game *gamePtr, int width, int height, int ncols,
 }
 void Lineman::update(float frameTime)
 {
-	spriteData.y=(e->getEdge()).bottom;
+	spriteData.y= 20;
 	if(isRight)
 	{
-		spriteData.x = (e->getEdge()).right;//set the X position*/
+		spriteData.x = 50;//set the X position*/
 	}
-	else
 	{
-		spriteData.x = (e->getEdge()).left - linemanns::WIDTH;//set the X position*/
+		spriteData.x = 50;
 	}
 }
 Lineman::Lineman()//Please do not remove this; it has a purpose.

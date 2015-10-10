@@ -133,8 +133,8 @@ void Belichick::update(float frameTime)
 
 	spriteData.y = spriteData.y + (dirY * velocity.y) * frameTime;//set the Y position
 	spriteData.x = spriteData.x + (dirX * velocity.x) * frameTime;//set the X position*/
-	l.setPos(spriteData.y,spriteData.x-linemanns::WIDTH);//set position of the linemen
-	r.setPos(spriteData.y,spriteData.x+belichickns::WIDTH);
+	l.setPos(spriteData.y,spriteData.x-linemanns::WIDTH*linemanns::LINEMAN_SCALE);//set position of the linemen
+	r.setPos(spriteData.y,spriteData.x+belichickns::WIDTH*belichickns::BEL_SCALE);
 }
 void Belichick::giveLinemen()
 {

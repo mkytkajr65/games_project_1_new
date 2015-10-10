@@ -9,7 +9,6 @@
 
 namespace linemanns
 {
-	const float Lineman_SCALE = .5;
     const int WIDTH = 128;                   // image width
     const int HEIGHT = 128;                  // image height
     const int X = GAME_WIDTH/2 - WIDTH/2;   // location on screen
@@ -25,6 +24,7 @@ class Lineman : public Entity
 private:
 	Entity* e;
 	bool isRight;
+	double width;
 public:
     // constructor
 	Lineman();
