@@ -92,15 +92,6 @@ void Spacewar::initialize(HWND hwnd)
 	if (!linemanTexture.initialize(graphics, LINEMAN_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Lineman texture initialization failed"));
 	
-<<<<<<< HEAD
-	belichickVel.xVel = B_DEFAULT_SPEED;
-	belichickVel.yVel = B_DEFAULT_SPEED;
-
-	belichickAirTime = 0.0f;
-
-
-=======
->>>>>>> origin/master
 	backDown = false;
     return;
 }
@@ -113,62 +104,8 @@ void Spacewar::update()
 	bel.update(frameTime);
 	f1.update(frameTime);
 	f2.update(frameTime);
-<<<<<<< HEAD
 	f3.update(frameTime);
 
-	float dirX=0;
-	float dirY=0;
-
-	bool arrowLeft = input->isKeyDown(VK_LEFT)&&!input->isKeyDown(VK_RIGHT);
-	bool arrowRight = !input->isKeyDown(VK_LEFT)&&input->isKeyDown(VK_RIGHT);
-	bool arrowUp = input->isKeyDown(VK_UP)&&!input->isKeyDown(VK_DOWN);
-	bool arrowDown = !input->isKeyDown(VK_UP)&&input->isKeyDown(VK_DOWN);
-
-	if(arrowLeft)//arrow left
-	{
-		if(belichick.getX() > 0)
-		{
-			dirX = -1;
-		}
-	}
-
-	
-
-	if(arrowRight)//arrow right
-	{
-		if(belichick.getX() <= (GAME_WIDTH - (belichick.getWidth() * BELICHICK_IMAGE_SCALE)))
-		{
-			dirX = 1;
-		}
-	}
-
-	if(arrowDown)//arrow down
-	{
-		if(belichick.getY() < (GAME_HEIGHT - (belichick.getHeight() * BELICHICK_IMAGE_SCALE)))
-		{
-			dirY = 1;
-			backDown = true;
-		}
-	}
-
-	if(arrowUp)//arrow up
-	{
-		if(belichick.getY() > 0 && belichickAirTime < BELICHICK_AIR_TIME_LIMIT)
-		{
-			dirY = -1;
-		}
-	}
-
-	if(belichickAirTime >= BELICHICK_AIR_TIME_LIMIT || backDown)
-=======
-	/*if(bel.hasLinemen())
->>>>>>> origin/master
-	{
-		(*(bel.getLeftLineman())).update(frameTime);
-		(*(bel.getRightLineman())).update(frameTime);
-	}*/
-	
-//WRAP
 
  
 
@@ -207,17 +144,15 @@ void Spacewar::render()
 	//belichick.draw();
 	f1.draw();
 	f2.draw();
-<<<<<<< HEAD
 	f3.draw();
 
-=======
 	if(bel.hasLinemen())
 	{
 		(*(bel.getLeftLineman())).draw();
 		(*(bel.getRightLineman())).draw();
 	}
 	bel.draw();
->>>>>>> origin/master
+
     graphics->spriteEnd();                  // end drawing sprites
 }
 
