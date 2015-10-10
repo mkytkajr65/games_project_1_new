@@ -29,9 +29,8 @@ Spacewar::~Spacewar()
 //=============================================================================
 void Spacewar::initialize(HWND hwnd)
 {
-    Game::initialize(hwnd); // throws GameError
-
 	srand(time(NULL));
+    Game::initialize(hwnd); // throws GameError
 
 	if (!myImageTexture.initialize(graphics, MY_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My texture initialization failed"));

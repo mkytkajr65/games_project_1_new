@@ -13,18 +13,19 @@ Football::Football() : Entity()
 	int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-9.8*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
 	height = rand() % height;
 	spriteData.y = GAME_HEIGHT - height;
+
+	speedChange = (rand() + rand()) % MAX_FOOTBALL_SPEED_CHANGE;
 	char msgbuf[2048];
 		
-	sprintf(msgbuf, "My variable is %d\n", height);
+	sprintf(msgbuf, "Speed Change %d\n", speedChange);
 	OutputDebugStringA(msgbuf);
-	speedChange = rand() % MAX_FOOTBALL_SPEED_CHANGE;
 	spriteData.width = footballNS::WIDTH * footballNS::FOOTBALL_SCALE;           // size of Football
     spriteData.height = footballNS::HEIGHT * footballNS::FOOTBALL_SCALE;
 	this->setScale(footballNS::FOOTBALL_SCALE);
     spriteData.x = footballNS::X;                   // location on screen
     spriteData.rect.bottom = footballNS::HEIGHT;    // rectangle to select parts of an image
     spriteData.rect.right = footballNS::WIDTH;
-	velocity.x = footballNS::X_SPEED;                           // velocity X
+	velocity.x = footballNS::X_SPEED + speedChange;                           // velocity X
     velocity.y = 0;                             // velocity Y
     frameDelay = footballNS::FOOTBALL_ANIMATION_DELAY;
     //startFrame = footballNS::SHIP1_START_FRAME;     // first frame of football animation
@@ -34,7 +35,8 @@ Football::Football() : Entity()
     //shieldOn = false;
     mass = footballNS::MASS;
     collisionType = entityNS::CIRCLE;
-
+	if(rand()%3==0)this->visible = false;
+	else { this->visible = true; }
 }
 
 //=============================================================================
@@ -81,7 +83,7 @@ void Football::update(float frameTime)
 
 		velocity.x = footballNS::X_SPEED + speedChange;
 		
-		speedChange = rand() % MAX_FOOTBALL_SPEED_CHANGE;
+		speedChange = (rand() + rand()) % MAX_FOOTBALL_SPEED_CHANGE;
 	}
 }
 
