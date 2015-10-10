@@ -7,6 +7,7 @@ Lineman::Lineman(Entity* e,bool isRight)
 	this->isRight;
 	if(!isRight)
 		flipHorizontal(true);
+	setScale(linemanns::LINEMAN_SCALE);
 }
 
 void Lineman::draw()

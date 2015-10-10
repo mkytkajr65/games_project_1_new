@@ -13,12 +13,13 @@ namespace belichickns
 	const float BEL_SCALE = 0.5;
     const int WIDTH = 128;                   // image width
     const int HEIGHT = 128;                  // image height
-    const int X = GAME_WIDTH/2 - WIDTH/2;   // location on screen
-    const int Y = GAME_HEIGHT-HEIGHT-1;//*BEL_SCALE;
+    const int X = GAME_WIDTH/2 - WIDTH*BEL_SCALE/2;   // location on screen
+    const int Y = (GAME_HEIGHT - (belichickns::HEIGHT * belichickns::BEL_SCALE));
 	const int TEXTURE_COLS=2;
 	const int   START_FRAME = 1;        // starts at frame 1
     const int   END_FRAME = 1;          // no animation
 	const float BELICHICK_ANIMATION_DELAY = 0.2f;
+	
 }
 
 class Belichick : public Entity
@@ -34,6 +35,7 @@ private:
 	Lineman l;//left lineman
 	Lineman r;//right lineman
 	Game* g;
+	int debugNum;
 public:
     // constructor
     Belichick();
