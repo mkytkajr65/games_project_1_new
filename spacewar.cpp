@@ -102,7 +102,8 @@ void Spacewar::initialize(HWND hwnd)
 void Spacewar::update()
 {
 
-	belichick.update(frameTime);
+	//belichick.update(frameTime);
+	bel.update(frameTime);
 	f1.update(frameTime);
 	f2.update(frameTime);
 
@@ -189,8 +190,12 @@ void Spacewar::update()
 
 	if(dirX+dirY!=0)//normalize
 	{
-		dirX/= sqrt(dirX*dirX+dirY*dirY);
+		/*float newDirX;
+		float newDirY;*/
+		dirX/=sqrt(dirX*dirX+dirY*dirY);
 		dirY/= sqrt(dirX*dirX+dirY*dirY);
+		/*dirX=newDirX;
+		dirY=newDirY;*/
 	}
 
 	belichickPos.yPos = belichick.getY() + (dirY * belichickVel.yVel) * frameTime;//set the Y position
@@ -237,10 +242,10 @@ void Spacewar::render()
     graphics->spriteBegin();                // begin drawing sprites
 
 	myImage.draw();
-	belichick.draw();
+	//belichick.draw();
 	f1.draw();
 	f2.draw();
-	//bel.draw();
+	bel.draw();
     graphics->spriteEnd();                  // end drawing sprites
 }
 

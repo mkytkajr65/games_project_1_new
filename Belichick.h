@@ -9,12 +9,12 @@
 
 namespace belichickns
 {
-	const float BELICHICK_SCALE = .1;
-    const int WIDTH = 1024;                   // image width
-    const int HEIGHT = 1024;                  // image height
+	const float BELICHICK_SCALE = 1;
+    const int WIDTH = 128;                   // image width
+    const int HEIGHT = 128;                  // image height
     const int X = GAME_WIDTH/2 - WIDTH/2;   // location on screen
-    const int Y = GAME_HEIGHT-HEIGHT;
-	const float SPEED = 100;                // 100 pixels per second
+    const int Y = GAME_HEIGHT-HEIGHT-1;//*BEL_SCALE;
+	const float SPEED = 1;                // 100 pixels per second
 	const int TEXTURE_COLS=2;
 	const int   START_FRAME = 1;        // starts at frame 1
     const int   END_FRAME = 1;          // no animation
@@ -28,7 +28,7 @@ private:
 	int speedChange;
 	float dirX;
 	float dirY;
-	int airTime;
+	double airTime;
 	bool backDown;
 	int counter;//This keeps track of how many footballs Belichick has dodged since the last time he was hit.
 public:

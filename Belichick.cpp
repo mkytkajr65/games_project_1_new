@@ -2,16 +2,16 @@
 
 Belichick::Belichick()
 {
-	spriteData.width = belichickns::WIDTH;           // size of Belichick
-    spriteData.height = belichickns::HEIGHT;
+	spriteData.width = belichickns::WIDTH*BEL_SCALE;           // size of Belichick
+    spriteData.height = belichickns::HEIGHT*BEL_SCALE;
     spriteData.x = belichickns::X;                   // location on screen
     spriteData.y = belichickns::Y;
-    spriteData.rect.bottom = belichickns::HEIGHT;    // rectangle to select parts of an image
-    spriteData.rect.right = belichickns::WIDTH;
-    velocity.x = 300;                             // velocity X
+    spriteData.rect.bottom = belichickns::HEIGHT*BEL_SCALE;    // rectangle to select parts of an image
+    spriteData.rect.right = belichickns::WIDTH*BEL_SCALE;
+    velocity.x = B_DEFAULT_SPEED;                             // velocity X
     velocity.y = 0;                             // velocity Y
     frameDelay = belichickns::BELICHICK_ANIMATION_DELAY;
-	radius = belichickns::WIDTH/2.0;
+	radius = (belichickns::WIDTH*BEL_SCALE)/2.0;
     collisionType = entityNS::CIRCLE;
 	dirX = 0;
 	dirY = 0;//Belichick initially starts at rest.
@@ -30,6 +30,8 @@ bool Belichick::initialize(Game *gamePtr, int width, int height, int ncols,
 }
 void Belichick::update(float frameTime)
 {
+	dirX=0;
+	dirY=0;
 	bool arrowLeft = input->isKeyDown(VK_LEFT)&&!input->isKeyDown(VK_RIGHT);
 	bool arrowRight = !input->isKeyDown(VK_LEFT)&&input->isKeyDown(VK_RIGHT);
 	bool arrowUp = input->isKeyDown(VK_UP)&&!input->isKeyDown(VK_DOWN);
@@ -74,10 +76,10 @@ void Belichick::update(float frameTime)
 	{
 		//if belichick has reached its max air time or its already going back down, GO DOWN
 		dirY = 1;
-		char msgbuf[2048];
+		/*char msgbuf[2048];
 
 		sprintf(msgbuf, "Top height %f\n", spriteData.x);
-		OutputDebugStringA(msgbuf);
+		OutputDebugStringA(msgbuf);*/
 	}
 	else if(airTime > 0.0 && airTime<BELICHICK_AIR_TIME_LIMIT && !arrowDown && !backDown)
 	{
@@ -88,7 +90,16 @@ void Belichick::update(float frameTime)
 	if(spriteData.y < (GAME_HEIGHT - (belichickns::HEIGHT * BEL_SCALE)))
 	{
 		//increase airtime if in the air still
+		
 		airTime += frameTime;
+		char msgbuf[2048];
+
+		sprintf(msgbuf, "Airtime %f\n", airTime);
+		OutputDebugStringA(msgbuf);
+		char msgbuf2[2048];
+
+		sprintf(msgbuf2, "frametime %f\n", frameTime);
+		OutputDebugStringA(msgbuf2);
 	}
 	else
 	{
@@ -110,9 +121,14 @@ void Belichick::update(float frameTime)
 
 	if(dirX+dirY!=0)//normalize
 	{
-		dirX/= sqrt(dirX*dirX+dirY*dirY);
-		dirY/= sqrt(dirX*dirX+dirY*dirY);
+		float newDirX;
+		float newDirY;
+		newDirX= dirX/(sqrt(dirX*dirX+dirY*dirY));
+		newDirY= dirY/(sqrt(dirX*dirX+dirY*dirY));
+		dirX=newDirX;
+		dirY=newDirY;
 	}
+	
 
 	spriteData.y = spriteData.y + (dirY * velocity.y) * frameTime;//set the Y position
 	spriteData.x = spriteData.x + (dirX * velocity.x) * frameTime;//set the X position*/
