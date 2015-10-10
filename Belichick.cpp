@@ -41,10 +41,6 @@ bool Belichick::initialize(Game *gamePtr, int width, int height, int ncols,
 }
 void Belichick::update(float frameTime)
 {
-	char msgbuf[2048];
-
-	sprintf(msgbuf, "Y value %f\n", spriteData.y,debugNum);
-	OutputDebugStringA(msgbuf);
 	dirX=0;
 	dirY=0;
 	bool arrowLeft = input->isKeyDown(VK_LEFT)&&!input->isKeyDown(VK_RIGHT);
@@ -82,7 +78,7 @@ void Belichick::update(float frameTime)
 			dirY = -1;
 		}
 	}
-	if(airTime >= BELICHICK_AIR_TIME_LIMIT || backDown)
+	if((airTime >= BELICHICK_AIR_TIME_LIMIT || backDown) && spriteData.y < (GAME_HEIGHT - (belichickns::HEIGHT * belichickns::BEL_SCALE)))
 	{
 		//if belichick has reached its max air time or its already going back down, GO DOWN
 		dirY = 1;
@@ -101,14 +97,6 @@ void Belichick::update(float frameTime)
 		//increase airtime if in the air still
 		
 		airTime += frameTime;
-		char msgbuf[2048];
-
-		sprintf(msgbuf, "Airtime %f\n", airTime);
-		OutputDebugStringA(msgbuf);
-		char msgbuf2[2048];
-
-		sprintf(msgbuf2, "frametime %f\n", frameTime);
-		OutputDebugStringA(msgbuf2);
 	}
 	else
 	{
