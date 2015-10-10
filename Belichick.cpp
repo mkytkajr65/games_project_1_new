@@ -16,9 +16,10 @@ Belichick::Belichick()
     collisionType = entityNS::CIRCLE;
 	dirX = 0;
 	dirY = 0;//Belichick initially starts at rest.
-	hasLinemen = false;
+	linemen = false;
 	airTime=0;
 	backDown=true;//Belichick starts on the ground.
+	g=NULL;
 }
 void Belichick::draw()
 {
@@ -27,6 +28,7 @@ void Belichick::draw()
 bool Belichick::initialize(Game *gamePtr, int width, int height, int ncols,
     TextureManager *textureM)
 {
+	g=gamePtr;
     return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 void Belichick::update(float frameTime)
@@ -133,8 +135,26 @@ void Belichick::update(float frameTime)
 
 	spriteData.y = spriteData.y + (dirY * velocity.y) * frameTime;//set the Y position
 	spriteData.x = spriteData.x + (dirX * velocity.x) * frameTime;//set the X position*/
+	l.setPos(spriteData.y,spriteData.x-linemanns::WIDTH);//set position of the linemen
+	r.setPos(spriteData.y,spriteData.x+belichickns::WIDTH);
 }
 void Belichick::giveLinemen()
 {
-	hasLinemen=true;
+	linemen=true;
+}
+Lineman* Belichick::getRightLineman()
+{
+	return &r;
+}
+Lineman* Belichick::getLeftLineman()
+{
+	return &l;
+}
+bool Belichick::hasLinemen()
+{
+	return linemen;
+}
+void Belichick::removeLinemen()
+{
+	linemen=false;
 }

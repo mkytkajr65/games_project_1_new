@@ -38,6 +38,12 @@ void Spacewar::initialize(HWND hwnd)
 	//
 	if (!bel.initialize(this, belichickns::WIDTH, belichickns::HEIGHT, 2, &belichickTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Belichick"));
+	bel.giveLinemen();
+	//bel.removeLinemen();
+	if(!(*(bel.getLeftLineman())).initialize(this, linemanns::WIDTH, linemanns::HEIGHT, 2, &linemanTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing left lineman"));
+	if(!(*(bel.getRightLineman())).initialize(this, linemanns::WIDTH, linemanns::HEIGHT, 2, &linemanTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing right lineman"));
 	//
 	myImage.setX(GAME_WIDTH/2 - (myImage.getWidth()*MY_IMAGE_SCALE)/2);
 	myImage.setY(GAME_HEIGHT/2 - (myImage.getHeight()*MY_IMAGE_SCALE)/2);
@@ -76,22 +82,9 @@ void Spacewar::initialize(HWND hwnd)
 
 	if (!belichickTexture.initialize(graphics, BELICHICK_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My texture initialization failed"));
-	if (!belichick.initialize(graphics, 0,0,0, &belichickTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error init my image"));
-	belichick.setX(GAME_WIDTH/2 - (belichick.getWidth()*BELICHICK_IMAGE_SCALE)/2);
-	belichick.setY((GAME_HEIGHT - (belichick.getHeight() * BELICHICK_IMAGE_SCALE)));
-	belichick.setScale(BELICHICK_IMAGE_SCALE);
-
-	belichickPos.xPos = belichick.getX();
-	belichickPos.yPos = belichick.getY();
-
+	if (!linemanTexture.initialize(graphics, LINEMAN_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Lineman texture initialization failed"));
 	
-	belichickVel.xVel = DEFAULT_SPEED;
-	belichickVel.yVel = DEFAULT_SPEED;
-
-	belichickAirTime = 0.0f;
-
-
 	backDown = false;
     return;
 }
@@ -101,111 +94,15 @@ void Spacewar::initialize(HWND hwnd)
 //=============================================================================
 void Spacewar::update()
 {
-
-	//belichick.update(frameTime);
 	bel.update(frameTime);
 	f1.update(frameTime);
 	f2.update(frameTime);
-
-	float dirX=0;
-	float dirY=0;
-
-	bool arrowLeft = input->isKeyDown(VK_LEFT)&&!input->isKeyDown(VK_RIGHT);
-	bool arrowRight = !input->isKeyDown(VK_LEFT)&&input->isKeyDown(VK_RIGHT);
-	bool arrowUp = input->isKeyDown(VK_UP)&&!input->isKeyDown(VK_DOWN);
-	bool arrowDown = !input->isKeyDown(VK_UP)&&input->isKeyDown(VK_DOWN);
-
-	if(arrowLeft)//arrow left
+	/*if(bel.hasLinemen())
 	{
-		if(belichick.getX() > 0)
-		{
-			dirX = -1;
-		}
-	}
-
+		(*(bel.getLeftLineman())).update(frameTime);
+		(*(bel.getRightLineman())).update(frameTime);
+	}*/
 	
-
-	if(arrowRight)//arrow right
-	{
-		if(belichick.getX() <= (GAME_WIDTH - (belichick.getWidth() * BELICHICK_IMAGE_SCALE)))
-		{
-			dirX = 1;
-		}
-	}
-
-	if(arrowDown)//arrow down
-	{
-		if(belichick.getY() < (GAME_HEIGHT - (belichick.getHeight() * BELICHICK_IMAGE_SCALE)))
-		{
-			dirY = 1;
-			backDown = true;
-		}
-	}
-
-	if(arrowUp)//arrow up
-	{
-		if(belichick.getY() > 0 && belichickAirTime < BELICHICK_AIR_TIME_LIMIT)
-		{
-			dirY = -1;
-		}
-	}
-
-	if(belichickAirTime >= BELICHICK_AIR_TIME_LIMIT || backDown)
-	{
-		//if belichick has reached its max air time or its already going back down, GO DOWN
-		dirY = 1;
-		char msgbuf[2048];
-
-		sprintf(msgbuf, "Top height %f\n", belichick.getX());
-		OutputDebugStringA(msgbuf);
-	}
-	else if(belichickAirTime > 0.0 && belichickAirTime<BELICHICK_AIR_TIME_LIMIT && !arrowDown && !backDown)
-	{
-		//else if belichick's air time is in flux and hes not going back down, GO UP
-		dirY = -1;
-	}
-
-	if(belichick.getY() < (GAME_HEIGHT - (belichick.getHeight() * BELICHICK_IMAGE_SCALE)))
-	{
-		//increase airtime if in the air still
-		belichickAirTime += frameTime;
-	}
-	else
-	{
-		//if on the ground
-		belichickAirTime = 0.0;
-		belichickVel.yVel = B_DEFAULT_SPEED;
-		backDown = false;
-	}
-
-	if(dirY==-1)//if hes going up
-	{
-		if((belichickVel.yVel - (9.8*frameTime)) > 0)belichickVel.yVel = belichickVel.yVel - (9.8*frameTime);
-	}
-	else if(dirY==1)//if hes going down
-	{
-		belichickVel.yVel = belichickVel.yVel + (9.8*frameTime);
-	}
-	
-
-	if(dirX+dirY!=0)//normalize
-	{
-		/*float newDirX;
-		float newDirY;*/
-		dirX/=sqrt(dirX*dirX+dirY*dirY);
-		dirY/= sqrt(dirX*dirX+dirY*dirY);
-		/*dirX=newDirX;
-		dirY=newDirY;*/
-	}
-
-	belichickPos.yPos = belichick.getY() + (dirY * belichickVel.yVel) * frameTime;//set the Y position
-	belichickPos.xPos = belichick.getX() + (dirX * belichickVel.xVel) * frameTime;//set the X position
-
-		
-	belichick.setX(belichickPos.xPos);
-	belichick.setY(belichickPos.yPos);
-
-
 //WRAP
 
  
@@ -245,6 +142,11 @@ void Spacewar::render()
 	//belichick.draw();
 	f1.draw();
 	f2.draw();
+	if(bel.hasLinemen())
+	{
+		(*(bel.getLeftLineman())).draw();
+		(*(bel.getRightLineman())).draw();
+	}
 	bel.draw();
     graphics->spriteEnd();                  // end drawing sprites
 }

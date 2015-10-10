@@ -5,6 +5,8 @@ Lineman::Lineman(Entity* e,bool isRight)
 {
 	this->e=e;
 	this->isRight;
+	if(!isRight)
+		flipHorizontal(true);
 }
 
 void Lineman::draw()
@@ -28,6 +30,11 @@ void Lineman::update(float frameTime)
 		spriteData.x = (e->getEdge()).left - linemanns::WIDTH;//set the X position*/
 	}
 }
-Lineman::Lineman()
+Lineman::Lineman()//Please do not remove this; it has a purpose.
 {
+}
+void Lineman::setPos(double y, double x)
+{
+	spriteData.x=x;
+	spriteData.y=y;
 }

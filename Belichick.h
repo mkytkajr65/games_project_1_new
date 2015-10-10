@@ -24,7 +24,7 @@ namespace belichickns
 class Belichick : public Entity
 {
 private:
-	bool hasLinemen;
+	bool linemen;
 	int speedChange;
 	float dirX;
 	float dirY;
@@ -33,6 +33,7 @@ private:
 	int counter;//This keeps track of how many footballs Belichick has dodged since the last time he was hit.
 	Lineman l;//left lineman
 	Lineman r;//right lineman
+	Game* g;
 public:
     // constructor
     Belichick();
@@ -43,6 +44,9 @@ public:
                             TextureManager *textureM);
     void update(float frameTime);
 	void giveLinemen();
-	//void removeLinemen();
+	bool hasLinemen();
+	Lineman* getLeftLineman();
+	Lineman* getRightLineman();
+	void removeLinemen();
 };
 

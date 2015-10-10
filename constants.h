@@ -33,7 +33,7 @@ const char SONY_IMAGE[] = "..\\games_project_1_new\\pictures\\sony.png";
 const char MY_IMAGE[] = "..\\games_project_1_new\\pictures\\1.png";
 const char BELICHICK_IMAGE[] = "..\\games_project_1_new\\pictures\\bScaled.png";
 const char FOOTBALL_IMAGE[] = "..\\games_project_1_new\\pictures\\football.png";
-const char LINEMAN_IMAGE[] = "..\\games_project_1_new\\pictures\\lineman.png";
+const char LINEMAN_IMAGE[] = "..\\games_project_1_new\\pictures\\lineman2.png";
 
 // window
 const char CLASS_NAME[] = "Spacewar";
