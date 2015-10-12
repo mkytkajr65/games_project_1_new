@@ -91,4 +91,7 @@ bool Football::isCrossing()
 {
 	return nowCrossing;
 }
+Football::Football(Meter* meter)
+{
 
+}

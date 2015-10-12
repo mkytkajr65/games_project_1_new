@@ -9,7 +9,6 @@
 
 #include "entity.h"
 #include "constants.h"
-#include "football.h"
 #include <ctime>
 #include <random>
 
@@ -37,19 +36,25 @@ class Meter : public Entity
 {
 private:
 	short int counter;
+<<<<<<< HEAD
 	Football* footballs[FOOTBALL_COUNT];
 	bool crossedYet[FOOTBALL_COUNT];//True if football has already gone off the end of the screen.
 	bool isCrossing(Football f);//returns true if football is currently going off the end of the screen.
+=======
+>>>>>>> origin/master
 
 public:
     // constructor
     Meter();
+<<<<<<< HEAD
 	Meter(Football f[FOOTBALL_COUNT]);
+=======
+>>>>>>> origin/master
 
     // inherited member functions
     virtual void draw();
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
-                            TextureManager *textureM,Football*);
+                            TextureManager *textureM);
     void update(float frameTime);
 	void set(int i);
 	int get();

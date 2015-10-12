@@ -14,7 +14,12 @@ Belichick::Belichick()
 
     spriteData.rect.bottom = belichickns::HEIGHT;    // rectangle to select parts of an image
     spriteData.rect.right = belichickns::WIDTH;
+<<<<<<< HEAD
 
+=======
+    spriteData.rect.bottom = belichickns::HEIGHT*belichickns::BEL_SCALE;    // rectangle to select parts of an image
+    spriteData.rect.right = belichickns::WIDTH*belichickns::BEL_SCALE;
+>>>>>>> origin/master
     velocity.x = B_DEFAULT_SPEED;                             // velocity X
     velocity.y = 0;    
 	// velocity Y
