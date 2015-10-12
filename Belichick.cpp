@@ -7,7 +7,6 @@ Belichick::Belichick()
     spriteData.height = belichickns::HEIGHT;
     spriteData.x = belichickns::X/**belichickns::BEL_SCALE*/;                   // location on screen
     spriteData.y = belichickns::Y/**belichickns::BEL_SCALE*/;
-<<<<<<< HEAD
 	char msgbuf[2048];
 
 	sprintf(msgbuf, "Y value %f\n", spriteData.y);
@@ -15,16 +14,13 @@ Belichick::Belichick()
 
     spriteData.rect.bottom = belichickns::HEIGHT;    // rectangle to select parts of an image
     spriteData.rect.right = belichickns::WIDTH;
-=======
-    spriteData.rect.bottom = belichickns::HEIGHT*belichickns::BEL_SCALE;    // rectangle to select parts of an image
-    spriteData.rect.right = belichickns::WIDTH*belichickns::BEL_SCALE;
->>>>>>> origin/master
+
     velocity.x = B_DEFAULT_SPEED;                             // velocity X
     velocity.y = 0;    
 	// velocity Y
 	setScale(belichickns::BEL_SCALE);
     frameDelay = belichickns::BELICHICK_ANIMATION_DELAY;
-	radius = (belichickns::WIDTH * belichickns::BEL_SCALE)/2.0;
+	radius = (belichickns::WIDTH)/2.0;
     collisionType = entityNS::CIRCLE;
 	dirX = 0;
 	dirY = 0;//Belichick initially starts at rest.
@@ -46,6 +42,7 @@ bool Belichick::initialize(Game *gamePtr, int width, int height, int ncols,
 }
 void Belichick::update(float frameTime)
 {
+	Entity::update(frameTime);
 	dirX=0;
 	dirY=0;
 	bool arrowLeft = input->isKeyDown(VK_LEFT)&&!input->isKeyDown(VK_RIGHT);
@@ -114,13 +111,6 @@ void Belichick::update(float frameTime)
 	else if(dirY==1)//if hes going down
 	{
 		velocity.y = velocity.y + (9.8*frameTime);
-<<<<<<< HEAD
-		/*char msgbuf[2048];
-
-		sprintf(msgbuf, "Down %f\n", spriteData.y);
-		OutputDebugStringA(msgbuf);*/
-=======
->>>>>>> origin/master
 	}
 	
 
@@ -133,6 +123,11 @@ void Belichick::update(float frameTime)
 		dirX=newDirX;
 		dirY=newDirY;
 	}
+
+	/*char msgbu[2048];
+		
+	sprintf(msgbu, "x val %f <=", getX());
+	OutputDebugStringA(msgbu);*/
 	
 
 	spriteData.y = spriteData.y + (dirY * velocity.y) * frameTime;//set the Y position

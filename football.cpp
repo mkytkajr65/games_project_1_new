@@ -32,7 +32,7 @@ Football::Football() : Entity()
     //startFrame = footballNS::SHIP1_START_FRAME;     // first frame of football animation
     //endFrame     = footballNS::SHIP1_END_FRAME;     // last frame of football animation
    // currentFrame = startFrame;
-	radius = (footballNS::WIDTH * footballNS::FOOTBALL_SCALE)/2.0;
+	radius = (footballNS::WIDTH)/2.0;
     //shieldOn = false;
     mass = footballNS::MASS;
     collisionType = entityNS::CIRCLE;
@@ -65,15 +65,14 @@ void Football::draw()
 // frameTime is used to regulate the speed of movement and animation
 //=============================================================================
 void Football::update(float frameTime)
-{
-    Entity::update(frameTime);
-    
-    spriteData.x += frameTime * velocity.x;         // move football along X 
+{    
+	Entity::update(frameTime);
+    spriteData.x += frameTime * velocity.x;     // move football along X 
 	nowCrossing=false;
 	if(spriteData.x >= GAME_WIDTH)
 	{
+		this->visible = true;
 		if(rand()%3==0)this->visible = false;
-		else { this->visible = true; }
 		//calculate height Belichick can reach
 		int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-9.8*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
 		height = (rand() % height) + 30;

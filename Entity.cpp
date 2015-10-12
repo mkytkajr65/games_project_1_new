@@ -130,6 +130,7 @@ bool Entity::collideCircle(Entity &ent, VECTOR2 &collisionVector)
     sumRadiiSquared = (radius*getScale()) + (ent.radius*ent.getScale());
     sumRadiiSquared *= sumRadiiSquared;                 // square it
 
+
     // if entities are colliding
     if(distSquared.x + distSquared.y <= sumRadiiSquared)
     {

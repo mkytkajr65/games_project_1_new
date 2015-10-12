@@ -12,9 +12,9 @@ Meter::Meter() : Entity()
 {
 	counter=0;
 }
-Meter::Meter(Football f[meterNS::NUM_FOOTBALLS])//Other constructor taking an array of footballs
+Meter::Meter(Football f[FOOTBALL_COUNT])//Other constructor taking an array of footballs
 {
-	for(int i=0;i<meterNS::NUM_FOOTBALLS;i++)
+	for(int i=0;i<FOOTBALL_COUNT;i++)
 		footballs[i]=&f[i];
 }
 //=============================================================================
@@ -24,7 +24,7 @@ Meter::Meter(Football f[meterNS::NUM_FOOTBALLS])//Other constructor taking an ar
 bool Meter::initialize(Game *gamePtr, int width, int height, int ncols,
     TextureManager *textureM,Football* f)
 {
-	for(int i=0;i<NUM_FOOTBALLS;i++)
+	for(int i=0;i<FOOTBALL_COUNT;i++)
 		footballs[i]=&f[i];
     return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }

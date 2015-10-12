@@ -22,7 +22,6 @@ namespace meterNS
     const int Y = GAME_HEIGHT/2 - HEIGHT/2;
     const int   TEXTURE_COLS = 16;           // texture has 16 columns
 	const int FRAMES[16]={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-	const int NUM_FOOTBALLS=3;
     //const int   SHIP1_START_FRAME = 0;      // ship1 starts at frame 0
    // const int   SHIP1_END_FRAME = 3;        // ship1 animation frames 0,1,2,3
    // const int   SHIP2_START_FRAME = 8;      // ship2 starts at frame 8
@@ -38,14 +37,14 @@ class Meter : public Entity
 {
 private:
 	short int counter;
-	Football* footballs[meterNS::NUM_FOOTBALLS];
-	bool crossedYet[meterNS::NUM_FOOTBALLS];//True if football has already gone off the end of the screen.
+	Football* footballs[FOOTBALL_COUNT];
+	bool crossedYet[FOOTBALL_COUNT];//True if football has already gone off the end of the screen.
 	bool isCrossing(Football f);//returns true if football is currently going off the end of the screen.
 
 public:
     // constructor
     Meter();
-	Meter(Football f[meterNS::NUM_FOOTBALLS]);
+	Meter(Football f[FOOTBALL_COUNT]);
 
     // inherited member functions
     virtual void draw();
