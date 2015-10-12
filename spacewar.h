@@ -13,6 +13,7 @@
 #include "image.h"
 #include "graphics.h"
 #include "Belichick.h"
+#include "meter.h"
 
 
 //=============================================================================
@@ -25,17 +26,20 @@ private:
 	// My defines
 	#define MY_IMAGE_SCALE .48
 	#define BELICHICK_IMAGE_SCALE .10
-
 // My vars
 
 	float belichickXVel;
 	float belichickYVel;
-	TextureManager belichickTexture, myImageTexture, f1Texture,linemanTexture;
+	TextureManager belichickTexture, myImageTexture, f1Texture,linemanTexture, meterTexture;
 	Image belichick, myImage;
 	Football f1,f2,f3;
 	Belichick bel;
+<<<<<<< HEAD
 
 	Football footballs[FOOTBALL_COUNT];
+=======
+	Meter meter;
+>>>>>>> origin/master
 	
 
 	struct position{
