@@ -12,20 +12,13 @@ Meter::Meter() : Entity()
 {
 	counter=0;
 }
-Meter::Meter(Football f[meterNS::NUM_FOOTBALLS])//Other constructor taking an array of footballs
-{
-	for(int i=0;i<meterNS::NUM_FOOTBALLS;i++)
-		footballs[i]=&f[i];
-}
 //=============================================================================
 // Initialize the Ship.
 // Post: returns true if successful, false if failed
 //=============================================================================
 bool Meter::initialize(Game *gamePtr, int width, int height, int ncols,
-    TextureManager *textureM,Football* f)
+    TextureManager *textureM)
 {
-	for(int i=0;i<NUM_FOOTBALLS;i++)
-		footballs[i]=&f[i];
     return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
@@ -49,10 +42,6 @@ void Meter::update(float frameTime)
 	if(isCrossing(*footballs[0]))
 		counter=((counter+1)%16);
 	*/
-}
-bool Meter::isCrossing(Football f)
-{
-	return f.isCrossing();
 }
 void Meter::set(int i)
 {
