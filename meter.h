@@ -36,20 +36,13 @@ class Meter : public Entity
 {
 private:
 	short int counter;
-<<<<<<< HEAD
-	Football* footballs[FOOTBALL_COUNT];
 	bool crossedYet[FOOTBALL_COUNT];//True if football has already gone off the end of the screen.
-	bool isCrossing(Football f);//returns true if football is currently going off the end of the screen.
-=======
->>>>>>> origin/master
+	//bool isCrossing(Football f);//returns true if football is currently going off the end of the screen.
+
 
 public:
     // constructor
     Meter();
-<<<<<<< HEAD
-	Meter(Football f[FOOTBALL_COUNT]);
-=======
->>>>>>> origin/master
 
     // inherited member functions
     virtual void draw();

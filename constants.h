@@ -55,10 +55,6 @@ const float B_DEFAULT_SPEED = 200;
 const float BELICHICK_AIR_TIME_LIMIT = 1.5;
 const int MAX_FOOTBALL_SPEED_CHANGE = 100;
 const float DEFAULT_SPEED = 80;
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 const int FOOTBALL_COUNT = 3;
 
 // key mappings

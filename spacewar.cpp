@@ -36,10 +36,7 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My texture initialization failed"));
 	if (!myImage.initialize(graphics, 0,0,0, &myImageTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error init my image"));
-<<<<<<< HEAD
-=======
-	Football footballs[FOOTBALL_COUNT]={f1,f2,f3};
->>>>>>> origin/master
+
 	//
 	if (!bel.initialize(this, belichickns::WIDTH, belichickns::HEIGHT, 2, &belichickTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Belichick"));
@@ -71,13 +68,10 @@ void Spacewar::initialize(HWND hwnd)
 	if (!f2.initialize(this,  0, 0, 0, &f1Texture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 
-<<<<<<< HEAD
+
 	/*if (!meter.initialize(this, 16, 128, 16, &meterTexture,footballs))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing meter"));*/
-=======
-	if (!meter.initialize(this, 16, 128, 16, &meterTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing meter"));
->>>>>>> origin/master
+
 	
 	//Stuff for physics
 	myImagePos.xPos = myImage.getX();
@@ -101,16 +95,10 @@ void Spacewar::initialize(HWND hwnd)
 	if (!linemanTexture.initialize(graphics, LINEMAN_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Lineman texture initialization failed"));
 	
-<<<<<<< HEAD
 	footballs[0] = &f1;
 	footballs[1] = &f2;
 	footballs[2] = &f3;
 
-=======
-	footballs[0] = f1;
-	footballs[1] = f2;
-	footballs[2] = f3;
->>>>>>> origin/master
 	backDown = false;
     return;
 }
@@ -125,7 +113,7 @@ void Spacewar::update()
 	f1.update(frameTime);
 	f2.update(frameTime);
 	f3.update(frameTime);
-	meter.update(frameTime);
+	//meter.update(frameTime);
 
 //REFLECT
  

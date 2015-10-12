@@ -34,12 +34,9 @@ private:
 	Image belichick, myImage;
 	Football f1,f2,f3;
 	Belichick bel;
-<<<<<<< HEAD
 	Football *footballs[FOOTBALL_COUNT];
-=======
 
-	Football footballs[FOOTBALL_COUNT];
->>>>>>> origin/master
+
 	Meter meter;
 	
 
