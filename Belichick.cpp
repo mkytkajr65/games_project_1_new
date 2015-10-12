@@ -7,10 +7,7 @@ Belichick::Belichick()
     spriteData.height = belichickns::HEIGHT;
     spriteData.x = belichickns::X/**belichickns::BEL_SCALE*/;                   // location on screen
     spriteData.y = belichickns::Y/**belichickns::BEL_SCALE*/;
-	char msgbuf[2048];
 
-	sprintf(msgbuf, "Y value %f\n", spriteData.y);
-	OutputDebugStringA(msgbuf);
 
     spriteData.rect.bottom = belichickns::HEIGHT;    // rectangle to select parts of an image
     spriteData.rect.right = belichickns::WIDTH;
@@ -42,6 +39,8 @@ bool Belichick::initialize(Game *gamePtr, int width, int height, int ncols,
 void Belichick::update(float frameTime)
 {
 	Entity::update(frameTime);
+	l.update(frameTime);
+	r.update(frameTime);
 	dirX=0;
 	dirY=0;
 	bool arrowLeft = input->isKeyDown(VK_LEFT)&&!input->isKeyDown(VK_RIGHT);
@@ -127,7 +126,16 @@ void Belichick::update(float frameTime)
 		
 	sprintf(msgbu, "x val %f <=", getX());
 	OutputDebugStringA(msgbu);*/
-	
+	if(linemen)
+	{ 
+		giveLinemen();
+	}
+	else{ removeLinemen(); }
+
+	char msgbuf[2048];
+
+	sprintf(msgbuf, "Linemen %d\n",  linemen);
+	OutputDebugStringA(msgbuf);
 
 	spriteData.y = spriteData.y + (dirY * velocity.y) * frameTime;//set the Y position
 	spriteData.x = spriteData.x + (dirX * velocity.x) * frameTime;//set the X position*/
@@ -136,7 +144,8 @@ void Belichick::update(float frameTime)
 }
 void Belichick::giveLinemen()
 {
-	linemen=true;
+	l.setVisible(true);
+	r.setVisible(true);
 }
 Lineman* Belichick::getRightLineman()
 {
@@ -152,5 +161,6 @@ bool Belichick::hasLinemen()
 }
 void Belichick::removeLinemen()
 {
-	linemen=false;
+	l.setVisible(false);
+	r.setVisible(false);
 }

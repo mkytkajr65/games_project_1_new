@@ -39,11 +39,13 @@ class Football : public Entity
 {
 private:
 	int speedChange;
-	bool nowCrossing;
+	bool didLeaveScreen;
 public:
     // constructor
     Football();
 	Football(Meter* meter);
+
+	bool getDidLeaveScreen(){return didLeaveScreen;}
 
     // inherited member functions
 	virtual void draw();
@@ -51,7 +53,6 @@ public:
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
                             TextureManager *textureM);
     void update(float frameTime);
-	bool isCrossing();
 };
 #endif
 

@@ -9,6 +9,7 @@ Lineman::Lineman(Entity* e,bool isRight)
 		flipHorizontal(true);
 	setScale(linemanns::LINEMAN_SCALE);
 	width=linemanns::WIDTH*linemanns::LINEMAN_SCALE;
+	setVisible(false);
 }
 
 void Lineman::draw()

@@ -40,7 +40,6 @@ void Spacewar::initialize(HWND hwnd)
 	//
 	if (!bel.initialize(this, belichickns::WIDTH, belichickns::HEIGHT, 2, &belichickTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Belichick"));
-	bel.giveLinemen();
 	//bel.removeLinemen();
 	if(!(*(bel.getLeftLineman())).initialize(this, linemanns::WIDTH, linemanns::HEIGHT, 2, &linemanTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing left lineman"));
@@ -99,6 +98,8 @@ void Spacewar::initialize(HWND hwnd)
 	footballs[1] = &f2;
 	footballs[2] = &f3;
 
+	consecutiveFootballs = 0;
+
 	backDown = false;
     return;
 }
@@ -115,6 +116,26 @@ void Spacewar::update()
 	f3.update(frameTime);
 	//meter.update(frameTime);
 
+
+	for(int i = 0;i<FOOTBALL_COUNT;i++)
+	{
+		if((*footballs[i]).getDidLeaveScreen() &&  (*footballs[i]).getVisible())
+		{
+			consecutiveFootballs++;
+			char msgbu[2048];
+		
+			sprintf(msgbu, "consecutive Footballs %d\n", consecutiveFootballs);
+			OutputDebugStringA(msgbu);
+		}
+	}
+	if(consecutiveFootballs>=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)
+	{
+		bel.setLinemen(true);
+	}
+	else
+	{
+		bel.setLinemen(false);
+	}
 //REFLECT
  
 
@@ -141,9 +162,14 @@ void Spacewar::collisions()
 	VECTOR2 collisionVector;
 	for(int i = 0;i<FOOTBALL_COUNT;i++)
 	{
-		if((*footballs[i]).collidesWith(bel, collisionVector))//if the collision has occured
+		if((*footballs[i]).collidesWith(bel, collisionVector) && (*footballs[i]).getVisible())//if the collision has occured
 		{
 			(*footballs[i]).setVisible(false);
+			consecutiveFootballs = 0;
+			char msgbu[2048];
+		
+			sprintf(msgbu, "consecutive Footballs %d\n", consecutiveFootballs);
+			OutputDebugStringA(msgbu);
 		}
 	}
 }
@@ -161,11 +187,6 @@ void Spacewar::render()
 	f2.draw();
 	f3.draw();
 	meter.draw();
-	if(bel.hasLinemen())
-	{
-		(*(bel.getLeftLineman())).draw();
-		(*(bel.getRightLineman())).draw();
-	}
 	bel.draw();
 
     graphics->spriteEnd();                  // end drawing sprites

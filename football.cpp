@@ -38,7 +38,7 @@ Football::Football() : Entity()
     collisionType = entityNS::CIRCLE;
 	if(rand()%3==0)this->visible = false;
 	else { this->visible = true; }
-	nowCrossing = false;
+	didLeaveScreen = false;
 }
 
 //=============================================================================
@@ -67,10 +67,11 @@ void Football::draw()
 void Football::update(float frameTime)
 {    
 	Entity::update(frameTime);
+	didLeaveScreen = false;
     spriteData.x += frameTime * velocity.x;     // move football along X 
-	nowCrossing=false;
-	if(spriteData.x >= GAME_WIDTH)
+	if(spriteData.x >= GAME_WIDTH)//if football goes past right edge of screen
 	{
+		didLeaveScreen = true;
 		this->visible = true;
 		if(rand()%3==0)this->visible = false;
 		//calculate height Belichick can reach
@@ -84,13 +85,9 @@ void Football::update(float frameTime)
 		velocity.x = footballNS::X_SPEED + speedChange;
 		
 		speedChange = (rand() + rand()) % MAX_FOOTBALL_SPEED_CHANGE;
-		nowCrossing=true;
 	}
 }
-bool Football::isCrossing()
-{
-	return nowCrossing;
-}
+
 Football::Football(Meter* meter)
 {
 

@@ -47,6 +47,7 @@ public:
     void update(float frameTime);
 	void giveLinemen();
 	bool hasLinemen();
+	void setLinemen(bool linemenOn){linemen = linemenOn;};
 	Lineman* getLeftLineman();
 	Lineman* getRightLineman();
 	void removeLinemen();

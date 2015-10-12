@@ -36,6 +36,7 @@ private:
 	Belichick bel;
 	Football *footballs[FOOTBALL_COUNT];
 
+	int consecutiveFootballs;
 
 	Meter meter;
 	
