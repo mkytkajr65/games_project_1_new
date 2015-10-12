@@ -34,6 +34,8 @@ private:
 	Image belichick, myImage;
 	Football f1,f2,f3;
 	Belichick bel;
+
+	Football footballs[FOOTBALL_COUNT];
 	
 
 	struct position{

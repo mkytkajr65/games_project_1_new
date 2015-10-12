@@ -15,13 +15,14 @@ Football::Football() : Entity()
 	spriteData.y = GAME_HEIGHT - height;
 
 	speedChange = (rand() + rand()) % MAX_FOOTBALL_SPEED_CHANGE;
-	char msgbuf[2048];
+
+	/*char msgbuf[2048];
 		
 	sprintf(msgbuf, "Speed Change %d\n", speedChange);
-	OutputDebugStringA(msgbuf);
-	spriteData.width = footballNS::WIDTH * footballNS::FOOTBALL_SCALE;           // size of Football
-    spriteData.height = footballNS::HEIGHT * footballNS::FOOTBALL_SCALE;
-	this->setScale(footballNS::FOOTBALL_SCALE);
+	OutputDebugStringA(msgbuf);*/
+	spriteData.width = footballNS::WIDTH;           // size of Football
+    spriteData.height = footballNS::HEIGHT;
+	setScale(footballNS::FOOTBALL_SCALE);
     spriteData.x = footballNS::X;                   // location on screen
     spriteData.rect.bottom = footballNS::HEIGHT;    // rectangle to select parts of an image
     spriteData.rect.right = footballNS::WIDTH;
@@ -31,7 +32,7 @@ Football::Football() : Entity()
     //startFrame = footballNS::SHIP1_START_FRAME;     // first frame of football animation
     //endFrame     = footballNS::SHIP1_END_FRAME;     // last frame of football animation
    // currentFrame = startFrame;
-	radius = footballNS::WIDTH * footballNS::FOOTBALL_SCALE/2.0;
+	radius = (footballNS::WIDTH * footballNS::FOOTBALL_SCALE)/2.0;
     //shieldOn = false;
     mass = footballNS::MASS;
     collisionType = entityNS::CIRCLE;

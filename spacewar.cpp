@@ -87,6 +87,10 @@ void Spacewar::initialize(HWND hwnd)
 	if (!linemanTexture.initialize(graphics, LINEMAN_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Lineman texture initialization failed"));
 	
+	footballs[0] = f1;
+	footballs[1] = f2;
+	footballs[2] = f3;
+
 	backDown = false;
     return;
 }
@@ -101,8 +105,6 @@ void Spacewar::update()
 	f2.update(frameTime);
 	f3.update(frameTime);
 
-
- 
 
 //REFLECT
  
@@ -126,7 +128,19 @@ void Spacewar::ai()
 // Handle collisions
 //=============================================================================
 void Spacewar::collisions()
-{}
+{
+	VECTOR2 collisionVector;
+	for(int i = 0;i<FOOTBALL_COUNT;i++)
+	{
+		if(footballs[i].collidesWith(bel, collisionVector))
+		{
+			char msgbuf[2048];
+		
+			sprintf(msgbuf, "true");
+			OutputDebugStringA(msgbuf);
+		}
+	}
+}
 
 //=============================================================================
 // Render game items
@@ -171,7 +185,7 @@ void Spacewar::resetAll()
 {
    
 	belichickTexture.onResetDevice();
-
+	
 
     Game::resetAll();
     return;
