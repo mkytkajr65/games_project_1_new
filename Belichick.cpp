@@ -7,11 +7,6 @@ Belichick::Belichick()
     spriteData.height = belichickns::HEIGHT;//*belichickns::BEL_SCALE;
     spriteData.x = belichickns::X/**belichickns::BEL_SCALE*/;                   // location on screen
     spriteData.y = belichickns::Y/**belichickns::BEL_SCALE*/;
-	char msgbuf[2048];
-
-	sprintf(msgbuf, "Y value %f\n", spriteData.y);
-	OutputDebugStringA(msgbuf);
-
     spriteData.rect.bottom = belichickns::HEIGHT*belichickns::BEL_SCALE;    // rectangle to select parts of an image
     spriteData.rect.right = belichickns::WIDTH*belichickns::BEL_SCALE;
     velocity.x = B_DEFAULT_SPEED;                             // velocity X
@@ -82,10 +77,6 @@ void Belichick::update(float frameTime)
 	{
 		//if belichick has reached its max air time or its already going back down, GO DOWN
 		dirY = 1;
-		/*char msgbuf[2048];
-
-		sprintf(msgbuf, "Top height %f\n", spriteData.x);
-		OutputDebugStringA(msgbuf);*/
 	}
 	else if(airTime > 0.0 && airTime<BELICHICK_AIR_TIME_LIMIT && !arrowDown && !backDown)
 	{
@@ -113,10 +104,6 @@ void Belichick::update(float frameTime)
 	else if(dirY==1)//if hes going down
 	{
 		velocity.y = velocity.y + (9.8*frameTime);
-		char msgbuf[2048];
-
-		sprintf(msgbuf, "Down %f\n", spriteData.y);
-		OutputDebugStringA(msgbuf);
 	}
 	
 

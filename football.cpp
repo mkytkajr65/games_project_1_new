@@ -37,6 +37,7 @@ Football::Football() : Entity()
     collisionType = entityNS::CIRCLE;
 	if(rand()%3==0)this->visible = false;
 	else { this->visible = true; }
+	nowCrossing = false;
 }
 
 //=============================================================================
@@ -67,8 +68,7 @@ void Football::update(float frameTime)
     Entity::update(frameTime);
     
     spriteData.x += frameTime * velocity.x;         // move football along X 
-
-
+	nowCrossing=false;
 	if(spriteData.x >= GAME_WIDTH)
 	{
 		if(rand()%3==0)this->visible = false;
@@ -84,6 +84,11 @@ void Football::update(float frameTime)
 		velocity.x = footballNS::X_SPEED + speedChange;
 		
 		speedChange = (rand() + rand()) % MAX_FOOTBALL_SPEED_CHANGE;
+		nowCrossing=true;
 	}
+}
+bool Football::isCrossing()
+{
+	return nowCrossing;
 }
 

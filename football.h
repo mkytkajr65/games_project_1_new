@@ -38,18 +38,19 @@ class Football : public Entity
 {
 private:
 	int speedChange;
+	bool nowCrossing;
 public:
     // constructor
     Football();
 	
 
     // inherited member functions
-    virtual void draw();
+	virtual void draw();
+
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
                             TextureManager *textureM);
     void update(float frameTime);
-
-    //void damage(WEAPON);
+	bool isCrossing();
 };
 #endif
 

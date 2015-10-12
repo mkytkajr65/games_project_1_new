@@ -34,6 +34,7 @@ const char MY_IMAGE[] = "..\\games_project_1_new\\pictures\\1.png";
 const char BELICHICK_IMAGE[] = "..\\games_project_1_new\\pictures\\bScaled.png";
 const char FOOTBALL_IMAGE[] = "..\\games_project_1_new\\pictures\\football.png";
 const char LINEMAN_IMAGE[] = "..\\games_project_1_new\\pictures\\lineman2.png";
+const char METER_SPRITE_SHEET[] = "..\\games_project_1_new\\pictures\\metersheetreal.png";
 
 // window
 const char CLASS_NAME[] = "Spacewar";
@@ -54,6 +55,7 @@ const float B_DEFAULT_SPEED = 200;
 const float BELICHICK_AIR_TIME_LIMIT = 1.5;
 const int MAX_FOOTBALL_SPEED_CHANGE = 100;
 const float DEFAULT_SPEED = 80;
+const short int NUM_FOOTBALLS = 3;
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used

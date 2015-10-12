@@ -31,11 +31,12 @@ void Spacewar::initialize(HWND hwnd)
 {
 	srand(time(NULL));
     Game::initialize(hwnd); // throws GameError
-
+	
 	if (!myImageTexture.initialize(graphics, MY_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My texture initialization failed"));
 	if (!myImage.initialize(graphics, 0,0,0, &myImageTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error init my image"));
+	Football footballs[NUM_FOOTBALLS]={f1,f2,f3};
 	//
 	if (!bel.initialize(this, belichickns::WIDTH, belichickns::HEIGHT, 2, &belichickTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Belichick"));
@@ -53,6 +54,9 @@ void Spacewar::initialize(HWND hwnd)
 	if (!f1Texture.initialize(graphics, FOOTBALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My football texture initialization failed"));
 
+	if (!meterTexture.initialize(graphics, METER_SPRITE_SHEET))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Meter sprite sheet initialization failed"));
+
 	if (!f1.initialize(this, 0, 0, 0, &f1Texture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 	
@@ -64,6 +68,8 @@ void Spacewar::initialize(HWND hwnd)
 	if (!f2.initialize(this,  0, 0, 0, &f1Texture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 
+	if (!meter.initialize(this, 16, 128, 16, &meterTexture,footballs))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing meter"));
 	
 	//Stuff for physics
 	myImagePos.xPos = myImage.getX();
@@ -86,7 +92,6 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My texture initialization failed"));
 	if (!linemanTexture.initialize(graphics, LINEMAN_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Lineman texture initialization failed"));
-	
 	backDown = false;
     return;
 }
@@ -96,11 +101,12 @@ void Spacewar::initialize(HWND hwnd)
 //=============================================================================
 void Spacewar::update()
 {
+	
 	bel.update(frameTime);
 	f1.update(frameTime);
 	f2.update(frameTime);
 	f3.update(frameTime);
-
+	meter.update(frameTime);
 
  
 
@@ -140,7 +146,7 @@ void Spacewar::render()
 	f1.draw();
 	f2.draw();
 	f3.draw();
-
+	meter.draw();
 	if(bel.hasLinemen())
 	{
 		(*(bel.getLeftLineman())).draw();
