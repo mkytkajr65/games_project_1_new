@@ -11,12 +11,9 @@
 Football::Football() : Entity()
 {
 	int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-GRAVITY*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
-	height = rand() % height;
+	height = (rand() % (height + (int)(spriteData.height * getScale()))) + (int)(spriteData.height * getScale());
 
-	/*char msgbuf[2048];
-		
-	sprintf(msgbuf, "rand %d\n", rand());
-	OutputDebugStringA(msgbuf);*/
+	
 
 	spriteData.y = GAME_HEIGHT - height;
 
@@ -96,7 +93,11 @@ void Football::update(float frameTime)
 		if(rand()%3==0)this->visible = false;
 		//calculate height Belichick can reach
 		int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-GRAVITY*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
-		height = (rand() % (int)(height + footballNS::HEIGHT * footballNS::FOOTBALL_SCALE)) + footballNS::HEIGHT * footballNS::FOOTBALL_SCALE;
+		height = (rand() % (height + (int)(spriteData.height * getScale()))) + (int)(spriteData.height * getScale());
+		char msgbuf[2048];
+		
+		sprintf(msgbuf, "height %d\n", height);
+		OutputDebugStringA(msgbuf);
 		if(rand()%2==0)
 		{
 			spriteData.x = 0;
