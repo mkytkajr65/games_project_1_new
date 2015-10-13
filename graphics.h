@@ -6,7 +6,6 @@
 #ifndef _GRAPHICS_H             // Prevent multiple definitions if this 
 #define _GRAPHICS_H             // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
-
 #ifdef _DEBUG
 #define D3D_DEBUG_INFO
 #endif
@@ -20,6 +19,7 @@
 #define LP_SPRITE   LPD3DXSPRITE
 #define LP_3DDEVICE LPDIRECT3DDEVICE9
 #define LP_3D       LPDIRECT3D9
+#define LP_DXFONT   LPD3DXFONT
 #define VECTOR2     D3DXVECTOR2
 
 // Color defines

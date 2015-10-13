@@ -15,6 +15,7 @@
 #include "Belichick.h"
 #include "meter.h"
 #include "Life.h"
+#include "testDx.h"
 
 
 //=============================================================================
@@ -23,7 +24,6 @@
 class Spacewar : public Game
 {
 private:
-
 	// My defines
 	#define MY_IMAGE_SCALE .48
 	#define BELICHICK_IMAGE_SCALE .10
@@ -56,7 +56,7 @@ private:
 	float belichickAirTime;
 	double belichick_speed;
 	bool backDown;
-	
+	TextDX  *dxFontLarge;
 public:
     // Constructor
     Spacewar();
