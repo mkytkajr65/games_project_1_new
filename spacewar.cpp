@@ -71,11 +71,15 @@ void Spacewar::initialize(HWND hwnd)
 	if (!f5.initialize(this, 0, 0, 0, &footballTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 	
-
-
-	/*if (!meter.initialize(this, 16, 128, 16, &meterTexture,footballs))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing meter"));*/
-
+	footballs[0] = &f1;
+	footballs[1] = &f2;
+	footballs[2] = &f3;
+	footballs[3] = &f4;
+	footballs[4] = &f5;
+	Meter tempMeter(footballs);
+	meter = tempMeter;
+	if (!meter.initialize(this, 16, 128, 16, &meterTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing meter"));
 	
 	myImagePos.xPos = myImage.getX();
 	myImagePos.yPos = myImage.getY();
@@ -97,11 +101,6 @@ void Spacewar::initialize(HWND hwnd)
 	if (!linemanTexture.initialize(graphics, LINEMAN_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Lineman texture initialization failed"));
 	
-	footballs[0] = &f1;
-	footballs[1] = &f2;
-	footballs[2] = &f3;
-	footballs[3] = &f4;
-	footballs[4] = &f5;
 
 	consecutiveFootballs = 0;
 
@@ -110,6 +109,7 @@ void Spacewar::initialize(HWND hwnd)
 	score = 0;
 
 	backDown = false;
+	
     return;
 }
 
@@ -129,22 +129,21 @@ void Spacewar::update()
 	f3.update(frameTime);
 	f4.update(frameTime);
 	f5.update(frameTime);
-	
-	//meter.update(frameTime);
+	char msgbu[2048];
+
+				
+	sprintf(msgbu, "consecutive footballs %d\n", consecutiveFootballs);
+	OutputDebugStringA(msgbu);
+	meter.set(consecutiveFootballs);
+	meter.update(frameTime);
 
 
 	for(int i = 0;i<FOOTBALL_COUNT;i++)
 	{
-		if((*footballs[i]).getWasVisible() && (*footballs[i]).getDidLeaveScreen())
+		if((*footballs[i]).getWasVisible() && (*footballs[i]).getDidLeaveScreen()&&!bel.hasLinemen())
 		{
 			consecutiveFootballs++;
-			//char msgbu[2048];
-		
-			//if a football left the screen, one point scored
 			score++;
-
-			//sprintf(msgbu, "consecutive Footballs %d\n", consecutiveFootballs);
-			//OutputDebugStringA(msgbu);
 		}
 	}
 	if(consecutiveFootballs>=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)
@@ -159,6 +158,7 @@ void Spacewar::update()
 		//remove BB's linemen
 		bel.setLinemen(false);
 	}
+
 //REFLECT
  
 
@@ -198,7 +198,7 @@ void Spacewar::collisions()
 
 				//1 life lost
 				livesLost++;
-				sprintf(msgbu, "lives lost %d\n", livesLost);
+				sprintf(msgbu, "consecutive footballs %d\n", consecutiveFootballs);
 				OutputDebugStringA(msgbu);
 			}
 		}
@@ -225,7 +225,6 @@ void Spacewar::render()
     graphics->spriteBegin();                // begin drawing sprites
 
 	myImage.draw();
-	//belichick.draw();
 	f1.draw();
 	f2.draw();
 	f3.draw();

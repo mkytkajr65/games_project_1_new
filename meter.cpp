@@ -12,7 +12,14 @@ Meter::Meter() : Entity()
 {
 	counter=0;
 }
-
+Meter::Meter(Football* f[FOOTBALL_COUNT]) : Entity()
+{
+	counter=0;
+	for(int i=0;i<FOOTBALL_COUNT;i++)
+	{
+		footballs[i]=f[i];
+	}
+}
 
 //=============================================================================
 // Initialize the Ship.
@@ -40,10 +47,18 @@ void Meter::draw()
 void Meter::update(float frameTime)
 {
     Entity::update(frameTime);
-	/*setCurrentFrame(meterNS::FRAMES[counter]);
-	if(isCrossing(*footballs[0]))
-		counter=((counter+1)%16);
-	*/
+	/*for(int i = 0; i < FOOTBALL_COUNT; i++)
+		if((*footballs[i]).getDidLeaveScreen())
+			counter++;*/
+	/*if(counter==15)
+		set(0);*/
+	if(counter>15)
+	{
+		char msgbu[2048];	
+		sprintf(msgbu, "Error: meter overflow\n");
+		OutputDebugStringA(msgbu);
+	}
+	setCurrentFrame(meterNS::FRAMES[counter]);
 }
 void Meter::set(int i)
 {
