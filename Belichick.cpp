@@ -131,11 +131,6 @@ void Belichick::update(float frameTime)
 	}
 	else{ removeLinemen(); }
 
-	char msgbuf[2048];
-
-	sprintf(msgbuf, "Linemen %d\n",  linemen);
-	OutputDebugStringA(msgbuf);
-
 	spriteData.y = spriteData.y + (dirY * velocity.y) * frameTime;//set the Y position
 	spriteData.x = spriteData.x + (dirX * velocity.x) * frameTime;//set the X position*/
 	l.setPos(spriteData.y,spriteData.x-linemanns::WIDTH*linemanns::LINEMAN_SCALE);//set position of the linemen

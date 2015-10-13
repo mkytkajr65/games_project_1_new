@@ -40,6 +40,7 @@ class Football : public Entity
 private:
 	int speedChange;
 	bool didLeaveScreen;
+	bool wasVisible;
 	enum direction {left, right} dir;
 public:
     // constructor
@@ -50,6 +51,7 @@ public:
 	
 
 	bool getDidLeaveScreen(){return didLeaveScreen;}
+	bool getWasVisible(){return wasVisible;}
 
     // inherited member functions
 	virtual void draw();

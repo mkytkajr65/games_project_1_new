@@ -78,11 +78,13 @@ void Football::update(float frameTime)
 {    
 	Entity::update(frameTime);
 	didLeaveScreen = false;
+	wasVisible = false;
 	if(dir==right)spriteData.x += frameTime * velocity.x;     // move football along X 
 	else if(dir==left) {spriteData.x -= frameTime * velocity.x;}
 
 	if(spriteData.x >= GAME_WIDTH || (spriteData.x + spriteData.width * getScale()) < 0)//if football goes past edge of screen
 	{
+		if(visible)wasVisible = true;
 		didLeaveScreen = true;
 		this->visible = true;
 		if(rand()%3==0)this->visible = false;

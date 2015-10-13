@@ -129,7 +129,7 @@ void Spacewar::update()
 
 	for(int i = 0;i<FOOTBALL_COUNT;i++)
 	{
-		if((*footballs[i]).getDidLeaveScreen() &&  (*footballs[i]).getVisible())
+		if((*footballs[i]).getWasVisible() && (*footballs[i]).getDidLeaveScreen())
 		{
 			consecutiveFootballs++;
 			char msgbu[2048];
@@ -193,7 +193,7 @@ void Spacewar::collisions()
 		}
 		else
 		{
-			if(((*footballs[i]).collidesWith(*bel.getLeftLineman(), collisionVector) || (*footballs[i]).collidesWith(*bel.getRightLineman(), collisionVector)) && (*footballs[i]).getVisible())//if the collision has occured
+			if(((*footballs[i]).collidesWith(*bel.getLeftLineman(), collisionVector) || (*footballs[i]).collidesWith(*bel.getRightLineman(), collisionVector) || (*footballs[i]).collidesWith(bel, collisionVector)) && (*footballs[i]).getVisible())//if the collision has occured
 			{
 				//make that football disappear
 				(*footballs[i]).setVisible(false);
