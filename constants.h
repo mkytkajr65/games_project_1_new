@@ -35,10 +35,11 @@ const char BELICHICK_IMAGE[] = "..\\games_project_1_new\\pictures\\bScaled.png";
 const char FOOTBALL_IMAGE[] = "..\\games_project_1_new\\pictures\\football.png";
 const char LINEMAN_IMAGE[] = "..\\games_project_1_new\\pictures\\lineman2.png";
 const char METER_SPRITE_SHEET[] = "..\\games_project_1_new\\pictures\\metersheetreal.png";
+const char LIFE_IMAGE[] = "..\\games_project_1_new\\pictures\\football.png";
 
 // window
-const char CLASS_NAME[] = "Spacewar";
-const char GAME_TITLE[] = "Spacewar";
+const char CLASS_NAME[] = "Deflategate Frenzy";
+const char GAME_TITLE[] = "Deflategate Frenzy";
 const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT GAME_WIDTH =  640;               // width of game in pixels
 const UINT GAME_HEIGHT = 480;               // height of game in pixels

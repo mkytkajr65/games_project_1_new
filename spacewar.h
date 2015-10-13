@@ -14,6 +14,7 @@
 #include "graphics.h"
 #include "Belichick.h"
 #include "meter.h"
+#include "Life.h"
 
 
 //=============================================================================
@@ -30,20 +31,16 @@ private:
 
 	float belichickXVel;
 	float belichickYVel;
-	TextureManager belichickTexture, myImageTexture, footballTexture,linemanTexture, meterTexture;
+	TextureManager belichickTexture, myImageTexture, footballTexture,linemanTexture, meterTexture,lifeTexture;
 	Image belichick, myImage;
 	Football f1,f2,f3,f4,f5;
 	Belichick bel;
 	Football *footballs[FOOTBALL_COUNT];
+	Life lives[MAX_LIVES];
 	int livesLost;
-
 	int score;
-
 	int consecutiveFootballs;
-
 	Meter meter;
-	
-
 	struct position{
 		float xPos;
 		float yPos;

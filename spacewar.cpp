@@ -35,7 +35,10 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My texture initialization failed"));
 	if (!myImage.initialize(graphics, 0,0,0, &myImageTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error init my image"));
-
+	for(int i = 0; i < MAX_LIVES;i++)
+	{
+		lives[i] = Life(i);
+	}
 	//
 	if (!bel.initialize(this, belichickns::WIDTH, belichickns::HEIGHT, 2, &belichickTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Belichick"));
@@ -54,6 +57,8 @@ void Spacewar::initialize(HWND hwnd)
 
 	if (!meterTexture.initialize(graphics, METER_SPRITE_SHEET))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Meter sprite sheet initialization failed"));
+	if (!lifeTexture.initialize(graphics, LIFE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Life texture initialization failed"));
 
 	if (!f1.initialize(this, 0, 0, 0, &footballTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
@@ -70,14 +75,14 @@ void Spacewar::initialize(HWND hwnd)
 	
 	if (!f5.initialize(this, 0, 0, 0, &footballTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
-	
+	for(int i=0;i<MAX_LIVES;i++)
+		if (!(lives[i]).initialize(this, 0, 0, 0, &lifeTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing life"));
 	footballs[0] = &f1;
 	footballs[1] = &f2;
 	footballs[2] = &f3;
 	footballs[3] = &f4;
 	footballs[4] = &f5;
-	Meter tempMeter(footballs);
-	meter = tempMeter;
 	if (!meter.initialize(this, 16, 128, 16, &meterTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing meter"));
 	
@@ -129,6 +134,10 @@ void Spacewar::update()
 	f3.update(frameTime);
 	f4.update(frameTime);
 	f5.update(frameTime);
+	for(int i = 0; i < MAX_LIVES;i++)
+	{
+		lives[i].update(frameTime);
+	}
 	char msgbu[2048];
 
 				
@@ -136,8 +145,6 @@ void Spacewar::update()
 	OutputDebugStringA(msgbu);
 	meter.set(consecutiveFootballs);
 	meter.update(frameTime);
-
-
 	for(int i = 0;i<FOOTBALL_COUNT;i++)
 	{
 		if((*footballs[i]).getWasVisible() && (*footballs[i]).getDidLeaveScreen()&&!bel.hasLinemen())
@@ -194,12 +201,8 @@ void Spacewar::collisions()
 
 				//set consecutive footballs to 0
 				consecutiveFootballs = 0;
-				char msgbu[2048];
-
 				//1 life lost
 				livesLost++;
-				sprintf(msgbu, "consecutive footballs %d\n", consecutiveFootballs);
-				OutputDebugStringA(msgbu);
 			}
 		}
 		else
@@ -231,6 +234,11 @@ void Spacewar::render()
 	f4.draw();
 	f5.draw();
 	meter.draw();
+	int numLives=MAX_LIVES-livesLost;
+	for(int i = 0;i < numLives;i++)
+	{
+		lives[i].draw();
+	}
 	bel.draw();
 
 	bel.getLeftLineman()->draw();
