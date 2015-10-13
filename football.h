@@ -40,10 +40,14 @@ class Football : public Entity
 private:
 	int speedChange;
 	bool didLeaveScreen;
+	enum direction {left, right} dir;
 public:
     // constructor
     Football();
 	Football(Meter* meter);
+
+	direction getDirection(){return dir;};
+	
 
 	bool getDidLeaveScreen(){return didLeaveScreen;}
 

@@ -50,21 +50,24 @@ void Spacewar::initialize(HWND hwnd)
 	myImage.setY(GAME_HEIGHT/2 - (myImage.getHeight()*MY_IMAGE_SCALE)/2);
 	myImage.setScale(MY_IMAGE_SCALE);
 
-	if (!f1Texture.initialize(graphics, FOOTBALL_IMAGE))
+	if (!footballTexture.initialize(graphics, FOOTBALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My football texture initialization failed"));
 
 	if (!meterTexture.initialize(graphics, METER_SPRITE_SHEET))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Meter sprite sheet initialization failed"));
 
-	if (!f1.initialize(this, 0, 0, 0, &f1Texture))
+	if (!f1.initialize(this, 0, 0, 0, &footballTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 	
 
-	if (!f3.initialize(this, 0, 0, 0, &f1Texture))
+	if (!f3.initialize(this, 0, 0, 0, &footballTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
+
+	if (!f4.initialize(this, 0, 0, 0, &footballTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 	
 
-	if (!f2.initialize(this,  0, 0, 0, &f1Texture))
+	if (!f2.initialize(this,  0, 0, 0, &footballTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 
 
@@ -72,7 +75,6 @@ void Spacewar::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing meter"));*/
 
 	
-	//Stuff for physics
 	myImagePos.xPos = myImage.getX();
 	myImagePos.yPos = myImage.getY();
 
@@ -83,8 +85,7 @@ void Spacewar::initialize(HWND hwnd)
 	myImage.setX(GAME_WIDTH/2 - (myImage.getWidth()*MY_IMAGE_SCALE)/2);
 	myImage.setY(GAME_HEIGHT/2 - (myImage.getHeight()*MY_IMAGE_SCALE)/2);
 	myImage.setScale(MY_IMAGE_SCALE);
-	
-	//Stuff for physics
+
 	myImagePos.xPos = myImage.getX();
 	myImagePos.yPos = myImage.getY();
 
@@ -97,8 +98,11 @@ void Spacewar::initialize(HWND hwnd)
 	footballs[0] = &f1;
 	footballs[1] = &f2;
 	footballs[2] = &f3;
+	footballs[3] = &f4;
 
 	consecutiveFootballs = 0;
+
+	livesLost = 0;
 
 	backDown = false;
     return;
@@ -109,11 +113,17 @@ void Spacewar::initialize(HWND hwnd)
 //=============================================================================
 void Spacewar::update()
 {
-	
+	if(MAX_LIVES == livesLost)//GAME OVER
+	{
+		exit(0);
+	}
+
 	bel.update(frameTime);
 	f1.update(frameTime);
 	f2.update(frameTime);
 	f3.update(frameTime);
+	f4.update(frameTime);
+	
 	//meter.update(frameTime);
 
 
@@ -130,10 +140,12 @@ void Spacewar::update()
 	}
 	if(consecutiveFootballs>=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)
 	{
+		//give BB linemen
 		bel.setLinemen(true);
 	}
 	else
 	{
+		//remove BB's linemen
 		bel.setLinemen(false);
 	}
 //REFLECT
@@ -162,14 +174,34 @@ void Spacewar::collisions()
 	VECTOR2 collisionVector;
 	for(int i = 0;i<FOOTBALL_COUNT;i++)
 	{
-		if((*footballs[i]).collidesWith(bel, collisionVector) && (*footballs[i]).getVisible())//if the collision has occured
+		if(!bel.hasLinemen())
 		{
-			(*footballs[i]).setVisible(false);
-			consecutiveFootballs = 0;
-			char msgbu[2048];
-		
-			sprintf(msgbu, "consecutive Footballs %d\n", consecutiveFootballs);
-			OutputDebugStringA(msgbu);
+			if((*footballs[i]).collidesWith(bel, collisionVector) && (*footballs[i]).getVisible())//if the collision has occured
+			{
+				//make that football disappear
+				(*footballs[i]).setVisible(false);
+
+				//set consecutive footballs to 0
+				consecutiveFootballs = 0;
+				//char msgbu[2048];
+
+				//1 life lost
+				livesLost++;
+				//sprintf(msgbu, "consecutive Footballs %d\n", consecutiveFootballs);
+				//OutputDebugStringA(msgbu);
+			}
+		}
+		else
+		{
+			if(((*footballs[i]).collidesWith(*bel.getLeftLineman(), collisionVector) || (*footballs[i]).collidesWith(*bel.getRightLineman(), collisionVector)) && (*footballs[i]).getVisible())//if the collision has occured
+			{
+				//make that football disappear
+				(*footballs[i]).setVisible(false);
+				//set consecutive footballs to 0
+				consecutiveFootballs = 0;
+				//make linemen disappear
+				bel.setLinemen(false);
+			}
 		}
 	}
 }
@@ -186,8 +218,12 @@ void Spacewar::render()
 	f1.draw();
 	f2.draw();
 	f3.draw();
+	f4.draw();
 	meter.draw();
 	bel.draw();
+
+	bel.getLeftLineman()->draw();
+	bel.getRightLineman()->draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }
@@ -199,6 +235,8 @@ void Spacewar::render()
 void Spacewar::releaseAll()
 {
 	belichickTexture.onLostDevice();
+	footballTexture.onLostDevice();
+	myImageTexture.onLostDevice();
 
     Game::releaseAll();
     return;
@@ -212,7 +250,8 @@ void Spacewar::resetAll()
 {
    
 	belichickTexture.onResetDevice();
-	
+	footballTexture.onResetDevice();
+	myImageTexture.onResetDevice();
 
     Game::resetAll();
     return;

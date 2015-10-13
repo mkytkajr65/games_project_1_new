@@ -24,7 +24,6 @@ class Lineman : public Entity
 private:
 	Entity* e;
 	bool isRight;
-	double width;
 public:
     // constructor
 	Lineman();

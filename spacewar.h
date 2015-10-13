@@ -30,11 +30,12 @@ private:
 
 	float belichickXVel;
 	float belichickYVel;
-	TextureManager belichickTexture, myImageTexture, f1Texture,linemanTexture, meterTexture;
+	TextureManager belichickTexture, myImageTexture, footballTexture,linemanTexture, meterTexture;
 	Image belichick, myImage;
-	Football f1,f2,f3;
+	Football f1,f2,f3,f4;
 	Belichick bel;
 	Football *footballs[FOOTBALL_COUNT];
+	int livesLost;
 
 	int consecutiveFootballs;
 

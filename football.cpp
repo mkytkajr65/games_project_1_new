@@ -10,9 +10,20 @@
 //=============================================================================
 Football::Football() : Entity()
 {
-	int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-9.8*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
+	int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-GRAVITY*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
 	height = rand() % height;
 	spriteData.y = GAME_HEIGHT - height;
+
+	if(rand()%2==0)
+	{
+		spriteData.x = 0;
+		dir = right;
+	}
+	else
+	{
+		spriteData.x = GAME_WIDTH;
+		dir = left;
+	}
 
 	speedChange = (rand() + rand()) % MAX_FOOTBALL_SPEED_CHANGE;
 
@@ -22,8 +33,7 @@ Football::Football() : Entity()
 	OutputDebugStringA(msgbuf);*/
 	spriteData.width = footballNS::WIDTH;           // size of Football
     spriteData.height = footballNS::HEIGHT;
-	setScale(footballNS::FOOTBALL_SCALE);
-    spriteData.x = footballNS::X;                   // location on screen
+	setScale(footballNS::FOOTBALL_SCALE);                   // location on screen
     spriteData.rect.bottom = footballNS::HEIGHT;    // rectangle to select parts of an image
     spriteData.rect.right = footballNS::WIDTH;
 	velocity.x = footballNS::X_SPEED + speedChange;                           // velocity X
@@ -68,16 +78,27 @@ void Football::update(float frameTime)
 {    
 	Entity::update(frameTime);
 	didLeaveScreen = false;
-    spriteData.x += frameTime * velocity.x;     // move football along X 
-	if(spriteData.x >= GAME_WIDTH)//if football goes past right edge of screen
+	if(dir==right)spriteData.x += frameTime * velocity.x;     // move football along X 
+	else if(dir==left) {spriteData.x -= frameTime * velocity.x;}
+
+	if(spriteData.x >= GAME_WIDTH || (spriteData.x + spriteData.width * getScale()) < 0)//if football goes past edge of screen
 	{
 		didLeaveScreen = true;
 		this->visible = true;
 		if(rand()%3==0)this->visible = false;
 		//calculate height Belichick can reach
-		int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-9.8*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
+		int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-GRAVITY*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
 		height = (rand() % height) + 30;
-		spriteData.x = 0;
+		if(rand()%2==0)
+		{
+			spriteData.x = 0;
+			dir = right;
+		}
+		else
+		{
+			spriteData.x = GAME_WIDTH;
+			dir = left;
+		}
 		spriteData.y = GAME_HEIGHT - height;
 		
 		if(rand()%2==0)speedChange *= -1;

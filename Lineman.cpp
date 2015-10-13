@@ -8,7 +8,10 @@ Lineman::Lineman(Entity* e,bool isRight)
 	if(!isRight)
 		flipHorizontal(true);
 	setScale(linemanns::LINEMAN_SCALE);
-	width=linemanns::WIDTH*linemanns::LINEMAN_SCALE;
+	spriteData.width = linemanns::WIDTH;         // size of Belichick
+	spriteData.height = linemanns::HEIGHT;
+	radius = (linemanns::WIDTH)/2.0;
+	collisionType = entityNS::CIRCLE;
 	setVisible(false);
 }
 

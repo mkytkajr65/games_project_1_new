@@ -55,8 +55,10 @@ const float B_DEFAULT_SPEED = 200;
 const float BELICHICK_AIR_TIME_LIMIT = 1.5;
 const int MAX_FOOTBALL_SPEED_CHANGE = 100;
 const float DEFAULT_SPEED = 80;
-const int FOOTBALL_COUNT = 3;
+const int FOOTBALL_COUNT = 4;
 const int CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD = 10;
+const int MAX_LIVES = 3;
+const float GRAVITY = 10.0;
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used

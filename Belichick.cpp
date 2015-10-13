@@ -20,7 +20,6 @@ Belichick::Belichick()
     collisionType = entityNS::CIRCLE;
 	dirX = 0;
 	dirY = 0;//Belichick initially starts at rest.
-	linemen = false;
 	airTime=0;
 	backDown=true;//Belichick starts on the ground.
 	g=NULL;
@@ -104,11 +103,11 @@ void Belichick::update(float frameTime)
 
 	if(dirY==-1)//if hes going up
 	{
-		if((velocity.y - (9.8*frameTime)) > 0)velocity.y = velocity.y - (9.8*frameTime);
+		if((velocity.y - (GRAVITY*frameTime)) > 0)velocity.y = velocity.y - (GRAVITY*frameTime);
 	}
 	else if(dirY==1)//if hes going down
 	{
-		velocity.y = velocity.y + (9.8*frameTime);
+		velocity.y = velocity.y + (GRAVITY*frameTime);
 	}
 	
 
