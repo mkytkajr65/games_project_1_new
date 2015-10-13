@@ -9,6 +9,7 @@
 
 #include "entity.h"
 #include "constants.h"
+#include "football.h"
 #include <ctime>
 #include <random>
 
@@ -36,10 +37,8 @@ class Meter : public Entity
 {
 private:
 	short int counter;
-	bool crossedYet[FOOTBALL_COUNT];//True if football has already gone off the end of the screen.
 	//bool isCrossing(Football f);//returns true if football is currently going off the end of the screen.
-
-
+	*Football footballs[FOOTBALL_COUNT];
 public:
     // constructor
     Meter();
@@ -51,6 +50,7 @@ public:
     void update(float frameTime);
 	void set(int i);
 	int get();
+	
 };
 #endif
 
