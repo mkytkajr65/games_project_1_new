@@ -13,7 +13,11 @@
 // Constructor
 //=============================================================================
 Spacewar::Spacewar()
-{}
+{
+	dxFontSmall	= new TextDX();     // DirectX fonts
+	dxFontMedium = new TextDX();
+	dxFontLarge	= new TextDX();
+}
 
 //=============================================================================
 // Destructor
@@ -30,7 +34,6 @@ Spacewar::~Spacewar()
 void Spacewar::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
-	
 	if (!myImageTexture.initialize(graphics, MY_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My texture initialization failed"));
 	if (!myImage.initialize(graphics, 0,0,0, &myImageTexture))
@@ -42,7 +45,6 @@ void Spacewar::initialize(HWND hwnd)
 	//
 	if (!bel.initialize(this, belichickns::WIDTH, belichickns::HEIGHT, 2, &belichickTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Belichick"));
-	//bel.removeLinemen();
 	if(!(*(bel.getLeftLineman())).initialize(this, linemanns::WIDTH, linemanns::HEIGHT, 2, &linemanTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing left lineman"));
 	if(!(*(bel.getRightLineman())).initialize(this, linemanns::WIDTH, linemanns::HEIGHT, 2, &linemanTexture))
@@ -110,11 +112,13 @@ void Spacewar::initialize(HWND hwnd)
 	consecutiveFootballs = 0;
 
 	livesLost = 0;
-
+	scoreMsg="";
 	score = 0;
 
 	backDown = false;
-	
+	if(dxFontLarge->initialize(graphics, 70, true, false, "Calibri")== false)
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
+
     return;
 }
 
@@ -138,11 +142,7 @@ void Spacewar::update()
 	{
 		lives[i].update(frameTime);
 	}
-	char msgbu[2048];
-
-				
-	sprintf(msgbu, "consecutive footballs %d\n", consecutiveFootballs);
-	OutputDebugStringA(msgbu);
+	
 	meter.set(consecutiveFootballs);
 	meter.update(frameTime);
 	for(int i = 0;i<FOOTBALL_COUNT;i++)
@@ -165,7 +165,7 @@ void Spacewar::update()
 		//remove BB's linemen
 		bel.setLinemen(false);
 	}
-
+	scoreMsg= "Score: " + score;
 //REFLECT
  
 
@@ -233,6 +233,7 @@ void Spacewar::render()
 	f3.draw();
 	f4.draw();
 	f5.draw();
+	dxFontLarge->print(scoreMsg,164,164);
 	meter.draw();
 	int numLives=MAX_LIVES-livesLost;
 	for(int i = 0;i < numLives;i++)

@@ -16,6 +16,7 @@
 #include "meter.h"
 #include "Life.h"
 #include "testDx.h"
+#include <string>
 
 
 //=============================================================================
@@ -39,6 +40,7 @@ private:
 	Life lives[MAX_LIVES];
 	int livesLost;
 	int score;
+	std::string scoreMsg;
 	int consecutiveFootballs;
 	Meter meter;
 	struct position{
@@ -56,7 +58,9 @@ private:
 	float belichickAirTime;
 	double belichick_speed;
 	bool backDown;
-	TextDX  *dxFontLarge;
+	TextDX  *dxFontSmall;       // DirectX fonts
+    TextDX  *dxFontMedium;
+    TextDX  *dxFontLarge;
 public:
     // Constructor
     Spacewar();
