@@ -58,6 +58,9 @@ void Spacewar::initialize(HWND hwnd)
 
 	if (!f1.initialize(this, 0, 0, 0, &footballTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
+
+	if (!f2.initialize(this,  0, 0, 0, &footballTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 	
 
 	if (!f3.initialize(this, 0, 0, 0, &footballTexture))
@@ -66,9 +69,9 @@ void Spacewar::initialize(HWND hwnd)
 	if (!f4.initialize(this, 0, 0, 0, &footballTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
 	
-
-	if (!f2.initialize(this,  0, 0, 0, &footballTexture))
+	if (!f5.initialize(this, 0, 0, 0, &footballTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jere"));
+	
 
 
 	/*if (!meter.initialize(this, 16, 128, 16, &meterTexture,footballs))
@@ -99,10 +102,13 @@ void Spacewar::initialize(HWND hwnd)
 	footballs[1] = &f2;
 	footballs[2] = &f3;
 	footballs[3] = &f4;
+	footballs[4] = &f5;
 
 	consecutiveFootballs = 0;
 
 	livesLost = 0;
+
+	score = 0;
 
 	backDown = false;
     return;
@@ -123,6 +129,7 @@ void Spacewar::update()
 	f2.update(frameTime);
 	f3.update(frameTime);
 	f4.update(frameTime);
+	f5.update(frameTime);
 	
 	//meter.update(frameTime);
 
@@ -132,16 +139,21 @@ void Spacewar::update()
 		if((*footballs[i]).getWasVisible() && (*footballs[i]).getDidLeaveScreen())
 		{
 			consecutiveFootballs++;
-			char msgbu[2048];
+			//char msgbu[2048];
 		
-			sprintf(msgbu, "consecutive Footballs %d\n", consecutiveFootballs);
-			OutputDebugStringA(msgbu);
+			//if a football left the screen, one point scored
+			score++;
+
+			//sprintf(msgbu, "consecutive Footballs %d\n", consecutiveFootballs);
+			//OutputDebugStringA(msgbu);
 		}
 	}
 	if(consecutiveFootballs>=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)
 	{
 		//give BB linemen
 		bel.setLinemen(true);
+		//bonus score for being over threshold
+		score++;
 	}
 	else
 	{
@@ -183,12 +195,12 @@ void Spacewar::collisions()
 
 				//set consecutive footballs to 0
 				consecutiveFootballs = 0;
-				//char msgbu[2048];
+				char msgbu[2048];
 
 				//1 life lost
 				livesLost++;
-				//sprintf(msgbu, "consecutive Footballs %d\n", consecutiveFootballs);
-				//OutputDebugStringA(msgbu);
+				sprintf(msgbu, "lives lost %d\n", livesLost);
+				OutputDebugStringA(msgbu);
 			}
 		}
 		else

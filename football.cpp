@@ -90,7 +90,8 @@ void Football::update(float frameTime)
 		if(rand()%3==0)this->visible = false;
 		//calculate height Belichick can reach
 		int height = (int)(((BELICHICK_AIR_TIME_LIMIT*B_DEFAULT_SPEED) + (0.5*-GRAVITY*(BELICHICK_AIR_TIME_LIMIT*BELICHICK_AIR_TIME_LIMIT))));
-		height = (rand() % height) + 30;
+		height = (rand() % height);
+		if(height-GAME_HEIGHT <= 15)height -= 25;
 		if(rand()%2==0)
 		{
 			spriteData.x = 0;
