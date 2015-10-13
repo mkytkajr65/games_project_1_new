@@ -29,7 +29,6 @@ Spacewar::~Spacewar()
 //=============================================================================
 void Spacewar::initialize(HWND hwnd)
 {
-	srand(time(NULL));
     Game::initialize(hwnd); // throws GameError
 	
 	if (!myImageTexture.initialize(graphics, MY_IMAGE))
@@ -231,6 +230,7 @@ void Spacewar::render()
 	f2.draw();
 	f3.draw();
 	f4.draw();
+	f5.draw();
 	meter.draw();
 	bel.draw();
 

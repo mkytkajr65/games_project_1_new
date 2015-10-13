@@ -4,6 +4,7 @@
 // Chapter 5 game.cpp v1.0
 
 #include "game.h"
+#include <ctime>
 
 // The primary class should inherit from Game class
 
@@ -17,6 +18,7 @@ Game::Game()
     paused = false;             // game is not paused
     graphics = NULL;
     initialized = false;
+	srand(time(NULL));
 }
 
 //=============================================================================
