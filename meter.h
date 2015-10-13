@@ -38,7 +38,7 @@ class Meter : public Entity
 private:
 	short int counter;
 	//bool isCrossing(Football f);//returns true if football is currently going off the end of the screen.
-	*Football footballs[FOOTBALL_COUNT];
+	Football* footballs;
 public:
     // constructor
     Meter();

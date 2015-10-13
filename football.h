@@ -11,7 +11,6 @@
 #include "constants.h"
 #include <ctime>
 #include <random>
-#include "meter.h"
 
 namespace footballNS
 {
@@ -45,7 +44,6 @@ private:
 public:
     // constructor
     Football();
-	Football(Meter* meter);
 
 	direction getDirection(){return dir;};
 	

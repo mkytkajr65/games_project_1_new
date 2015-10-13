@@ -116,8 +116,3 @@ void Football::update(float frameTime)
 		speedChange = rand() % MAX_FOOTBALL_SPEED_CHANGE;
 	}
 }
-
-Football::Football(Meter* meter)
-{
-
-}
