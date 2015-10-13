@@ -1,5 +1,5 @@
 #pragma once
-#include "c:\users\fryees1\documents\visual studio 2012\projects\games_project_1_new\entity.h"
+#include "entity.h"
 namespace lifeNS
 {
 	const float LIFE_SCALE = 0.12;  
