@@ -165,7 +165,11 @@ void Spacewar::update()
 		//remove BB's linemen
 		bel.setLinemen(false);
 	}
-	scoreMsg= "Score: " + score;
+	scoreMsg= "Score: ";
+	/*char msgbu[2048];
+	sprintf(msgbu, "ScoreMsg: %d\n", scoreMsg);
+	OutputDebugStringA(msgbu);*/
+	
 //REFLECT
  
 
@@ -233,7 +237,7 @@ void Spacewar::render()
 	f3.draw();
 	f4.draw();
 	f5.draw();
-	dxFontLarge->print(scoreMsg,164,164);
+	dxFontLarge->print(scoreMsg,SCORE_X_POS,SCORE_Y_POS);
 	meter.draw();
 	int numLives=MAX_LIVES-livesLost;
 	for(int i = 0;i < numLives;i++)
