@@ -4,7 +4,7 @@ namespace lifeNS
 {
 	const float LIFE_SCALE = 0.12;  
 	const int HEIGHT = 32;                  // image height
-    const int Y = GAME_HEIGHT*.04;
+    const int Y = GAME_HEIGHT*.015;
 	const int WIDTH = 32;                   // image width
 }
 class Life : public Entity

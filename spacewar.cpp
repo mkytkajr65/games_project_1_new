@@ -8,6 +8,7 @@
 #include "spaceWar.h"
 #include "d3dx9math.h"
 #include "Belichick.h"
+#include <string>
 #include <cmath>
 //=============================================================================
 // Constructor
@@ -165,7 +166,7 @@ void Spacewar::update()
 		//remove BB's linemen
 		bel.setLinemen(false);
 	}
-	scoreMsg= "Score: ";
+	scoreMsg= "Score: "+std::to_string(score);
 	/*char msgbu[2048];
 	sprintf(msgbu, "ScoreMsg: %d\n", scoreMsg);
 	OutputDebugStringA(msgbu);*/
