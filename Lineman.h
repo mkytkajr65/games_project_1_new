@@ -17,7 +17,7 @@ namespace linemanns
 	const int   START_FRAME = 1;        // starts at frame 1
     const int   END_FRAME = 1;          // no animation
 	const float LINEMAN_ANIMATION_DELAY = 0.2f;
-	const float LINEMAN_SCALE=.5;
+	const float LINEMAN_SCALE=.6;
 }
 class Lineman : public Entity
 {

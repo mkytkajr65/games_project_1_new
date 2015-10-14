@@ -69,6 +69,16 @@ const UCHAR ESC_KEY      = VK_ESCAPE;   // escape key
 const UCHAR ALT_KEY      = VK_MENU;     // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
 
+// audio files required by audio.cpp
+// WAVE_BANK must be location of .xwb file.
+const char WAVE_BANK[]  = "..\\games_project_1_new\\audio\\Win\\WavesExample1.xwb";
+// SOUND_BANK must be location of .xsb file.
+const char SOUND_BANK[] = "..\\games_project_1_new\\audio\\Win\\SoundsExample1.xsb";
+
+// audio cues
+const char BEEP1[] = "beep1";
+const char HIT[]   = "hit";
+
 
 
 #endif

@@ -10,7 +10,7 @@
 
 namespace belichickns
 {
-	const float BEL_SCALE = 0.5;
+	const float BEL_SCALE = 0.6;
     const int WIDTH = 128;                   // image width
     const int HEIGHT = 128;                  // image height
     const double X = GAME_WIDTH/2 - WIDTH*BEL_SCALE/2;   // location on screen

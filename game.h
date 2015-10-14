@@ -13,6 +13,7 @@
 #include "input.h"
 #include "constants.h"
 #include "gameError.h"
+#include "audio.h"
 
 class Game
 {
@@ -30,7 +31,7 @@ protected:
     DWORD   sleepTime;          // number of milli-seconds to sleep between frames
     bool    paused;             // true if game is paused
     bool    initialized;
-
+	Audio   *audio;             // pointer to Audio
 public:
     // Constructor
     Game();
@@ -73,6 +74,9 @@ public:
 
     // Return pointer to Input.
     Input* getInput()       {return input;}
+
+	// Return pointer to Audio.
+    Audio* getAudio()       {return audio;}
 
     // Exit the game
     void exitGame()         {PostMessage(hwnd, WM_DESTROY, 0, 0);}

@@ -208,6 +208,7 @@ void Spacewar::collisions()
 				consecutiveFootballs = 0;
 				//1 life lost
 				livesLost++;
+				audio->playCue("beep1");
 			}
 		}
 		else
@@ -220,6 +221,7 @@ void Spacewar::collisions()
 				consecutiveFootballs = 0;
 				//make linemen disappear
 				bel.setLinemen(false);
+				audio->playCue("hit");
 			}
 			else if((*footballs[i]).collidesWith(bel, collisionVector) && (*footballs[i]).getVisible())
 			{
@@ -230,6 +232,7 @@ void Spacewar::collisions()
 				//make linemen disappear
 				bel.setLinemen(false);
 				livesLost++;
+				audio->playCue("beep1");
 			}
 		}
 	}
