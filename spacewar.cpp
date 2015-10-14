@@ -117,7 +117,7 @@ void Spacewar::initialize(HWND hwnd)
 	score = 0;
 
 	backDown = false;
-	if(dxFontLarge->initialize(graphics, 70, true, false, "Calibri")== false)
+	if(dxFontLarge->initialize(graphics, 20, true, false, "Calibri")== false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
 
     return;
@@ -144,14 +144,15 @@ void Spacewar::update()
 		lives[i].update(frameTime);
 	}
 	
-	meter.set(consecutiveFootballs);
+	if(consecutiveFootballs<=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)meter.set(consecutiveFootballs);
 	meter.update(frameTime);
 	for(int i = 0;i<FOOTBALL_COUNT;i++)
 	{
-		if((*footballs[i]).getWasVisible() && (*footballs[i]).getDidLeaveScreen()&&!bel.hasLinemen())
+		if((*footballs[i]).getWasVisible() && (*footballs[i]).getDidLeaveScreen())
 		{
 			consecutiveFootballs++;
-			score++;
+			if(consecutiveFootballs>=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD){score += 2;}
+			else { score++; }
 		}
 	}
 	if(consecutiveFootballs>=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)
@@ -159,7 +160,6 @@ void Spacewar::update()
 		//give BB linemen
 		bel.setLinemen(true);
 		//bonus score for being over threshold
-		score++;
 	}
 	else
 	{
@@ -212,7 +212,7 @@ void Spacewar::collisions()
 		}
 		else
 		{
-			if(((*footballs[i]).collidesWith(*bel.getLeftLineman(), collisionVector) || (*footballs[i]).collidesWith(*bel.getRightLineman(), collisionVector) || (*footballs[i]).collidesWith(bel, collisionVector)) && (*footballs[i]).getVisible())//if the collision has occured
+			if(((*footballs[i]).collidesWith(*bel.getLeftLineman(), collisionVector) || (*footballs[i]).collidesWith(*bel.getRightLineman(), collisionVector)) && (*footballs[i]).getVisible())//if the collision has occured
 			{
 				//make that football disappear
 				(*footballs[i]).setVisible(false);
@@ -220,6 +220,16 @@ void Spacewar::collisions()
 				consecutiveFootballs = 0;
 				//make linemen disappear
 				bel.setLinemen(false);
+			}
+			else if((*footballs[i]).collidesWith(bel, collisionVector) && (*footballs[i]).getVisible())
+			{
+				//make that football disappear
+				(*footballs[i]).setVisible(false);
+				//set consecutive footballs to 0
+				consecutiveFootballs = 0;
+				//make linemen disappear
+				bel.setLinemen(false);
+				livesLost++;
 			}
 		}
 	}

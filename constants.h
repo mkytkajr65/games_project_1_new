@@ -60,8 +60,8 @@ const int FOOTBALL_COUNT = 5;
 const int CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD = 15;
 const int MAX_LIVES = 3;
 const float GRAVITY = 12.0;
-const int SCORE_X_POS=.70*GAME_WIDTH;
-const int SCORE_Y_POS=.03*GAME_HEIGHT;
+const int SCORE_X_POS=.85*GAME_WIDTH;
+const int SCORE_Y_POS=.01*GAME_HEIGHT;
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
 // it would be possible to save and restore key mappings from a data file.

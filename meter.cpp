@@ -47,21 +47,12 @@ void Meter::draw()
 void Meter::update(float frameTime)
 {
     Entity::update(frameTime);
-	/*for(int i = 0; i < FOOTBALL_COUNT; i++)
-		if((*footballs[i]).getDidLeaveScreen())
-			counter++;*/
-	/*if(counter==15)
-		set(0);*/
-	if(counter>15)
-	{
-		char msgbu[2048];	
-		sprintf(msgbu, "Error: meter overflow\n");
-		OutputDebugStringA(msgbu);
-	}
+
 	setCurrentFrame(meterNS::FRAMES[counter]);
 }
 void Meter::set(int i)
 {
+	if(i>CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)return;
 	counter = i;
 }
 int Meter::get()
