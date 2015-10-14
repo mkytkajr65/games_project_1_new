@@ -29,7 +29,7 @@ private:
 	#define MY_IMAGE_SCALE .48
 	#define BELICHICK_IMAGE_SCALE .10
 // My vars
-
+	bool game_over;
 	float belichickXVel;
 	float belichickYVel;
 	TextureManager belichickTexture, myImageTexture, footballTexture,linemanTexture, meterTexture,lifeTexture;

@@ -35,6 +35,7 @@ Spacewar::~Spacewar()
 void Spacewar::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
+	
 	if (!myImageTexture.initialize(graphics, MY_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "My texture initialization failed"));
 	if (!myImage.initialize(graphics, 0,0,0, &myImageTexture))
@@ -44,6 +45,9 @@ void Spacewar::initialize(HWND hwnd)
 		lives[i] = Life(i);
 	}
 	//
+
+	game_over = false;
+
 	if (!bel.initialize(this, belichickns::WIDTH, belichickns::HEIGHT, 2, &belichickTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Belichick"));
 	if(!(*(bel.getLeftLineman())).initialize(this, linemanns::WIDTH, linemanns::HEIGHT, 2, &linemanTexture))
@@ -117,7 +121,9 @@ void Spacewar::initialize(HWND hwnd)
 	score = 0;
 
 	backDown = false;
-	if(dxFontLarge->initialize(graphics, 20, true, false, "Calibri")== false)
+	if(dxFontLarge->initialize(graphics, 40, true, false, "Calibri")== false)
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
+	if(dxFontMedium->initialize(graphics, 20, true, false, "Calibri")== false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
 
     return;
@@ -128,58 +134,57 @@ void Spacewar::initialize(HWND hwnd)
 //=============================================================================
 void Spacewar::update()
 {
-	if(MAX_LIVES == livesLost)//GAME OVER
+	if(!game_over)
 	{
-		exit(0);
-	}
-
-	bel.update(frameTime);
-	f1.update(frameTime);
-	f2.update(frameTime);
-	f3.update(frameTime);
-	f4.update(frameTime);
-	f5.update(frameTime);
-	for(int i = 0; i < MAX_LIVES;i++)
-	{
-		lives[i].update(frameTime);
-	}
+		bel.update(frameTime);
+		f1.update(frameTime);
+		f2.update(frameTime);
+		f3.update(frameTime);
+		f4.update(frameTime);
+		f5.update(frameTime);
 	
-	if(consecutiveFootballs<=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)meter.set(consecutiveFootballs);
-	meter.update(frameTime);
-	for(int i = 0;i<FOOTBALL_COUNT;i++)
-	{
-		if((*footballs[i]).getWasVisible() && (*footballs[i]).getDidLeaveScreen())
+		for(int i = 0; i < MAX_LIVES;i++)
 		{
-			consecutiveFootballs++;
-			if(consecutiveFootballs>=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD){score += 2;}
-			else { score++; }
+			lives[i].update(frameTime);
 		}
-	}
-	if(consecutiveFootballs>=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)
-	{
-		//give BB linemen
-		bel.setLinemen(true);
-		//bonus score for being over threshold
-	}
-	else
-	{
-		//remove BB's linemen
-		bel.setLinemen(false);
-	}
-	scoreMsg= "Score: "+std::to_string(score);
-	/*char msgbu[2048];
-	sprintf(msgbu, "ScoreMsg: %d\n", scoreMsg);
-	OutputDebugStringA(msgbu);*/
 	
-//REFLECT
+		if(consecutiveFootballs<=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)meter.set(consecutiveFootballs);
+		meter.update(frameTime);
+		for(int i = 0;i<FOOTBALL_COUNT;i++)
+		{
+			if((*footballs[i]).getWasVisible() && (*footballs[i]).getDidLeaveScreen())
+			{
+				consecutiveFootballs++;
+				if(consecutiveFootballs>=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD){score += 2;}
+				else { score++; }
+			}
+		}
+		if(consecutiveFootballs>=CONSECUTIVE_FOOTBALLS_LINEMEN_THRESHOLD)
+		{
+			//give BB linemen
+			bel.setLinemen(true);
+			//bonus score for being over threshold
+		}
+		else
+		{
+			//remove BB's linemen
+			bel.setLinemen(false);
+		}
+		scoreMsg= "Score: "+std::to_string(score);
+		/*char msgbu[2048];
+		sprintf(msgbu, "ScoreMsg: %d\n", scoreMsg);
+		OutputDebugStringA(msgbu);*/
+	
+	//REFLECT
  
 
- ////////////////
-// INPUT MODS
- ////////////////
+	 ////////////////
+	// INPUT MODS
+	 ////////////////
 
- int directionX = 0;
- int directionY = 0;
+	 int directionX = 0;
+	 int directionY = 0;
+	}
 
 }
 
@@ -251,7 +256,12 @@ void Spacewar::render()
 	f3.draw();
 	f4.draw();
 	f5.draw();
-	dxFontLarge->print(scoreMsg,SCORE_X_POS,SCORE_Y_POS);
+	dxFontMedium->print(scoreMsg,SCORE_X_POS,SCORE_Y_POS);
+	if(MAX_LIVES <= livesLost)//GAME OVER
+	{
+		dxFontLarge->print(GAME_OVER_MESSAGE,GAME_OVER_X_POS,GAME_OVER_Y_POS);
+		game_over = true;
+	}
 	meter.draw();
 	int numLives=MAX_LIVES-livesLost;
 	for(int i = 0;i < numLives;i++)

@@ -49,17 +49,37 @@ void Belichick::update(float frameTime)
 
 	if(arrowLeft)//arrow left
 	{
-		if(spriteData.x > 0)
+		if(!hasLinemen())
 		{
-			dirX = -1;
+			if(spriteData.x > 0)
+			{
+				dirX = -1;
+			}
+		}
+		else
+		{
+			if(spriteData.x  > linemanns::WIDTH*linemanns::LINEMAN_SCALE)
+			{
+				dirX = -1;
+			}
 		}
 	}
 
 	if(arrowRight)//arrow right
 	{
-		if(spriteData.x <= (GAME_WIDTH - (belichickns::WIDTH * belichickns::BEL_SCALE)))
+		if(!hasLinemen())
 		{
-			dirX = 1;
+			if(spriteData.x <= (GAME_WIDTH - (belichickns::WIDTH * belichickns::BEL_SCALE)))
+			{
+				dirX = 1;
+			}
+		}
+		else
+		{
+			if(spriteData.x <= (GAME_WIDTH - (belichickns::WIDTH * belichickns::BEL_SCALE) - (linemanns::WIDTH*linemanns::LINEMAN_SCALE)))
+			{
+				dirX = 1;
+			}
 		}
 	}
 	if(arrowDown)//arrow down

@@ -7,6 +7,7 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include <windows.h>
+#include <string>
 
 //-----------------------------------------------
 // Useful macros
@@ -62,6 +63,9 @@ const int MAX_LIVES = 3;
 const float GRAVITY = 12.0;
 const int SCORE_X_POS=.85*GAME_WIDTH;
 const int SCORE_Y_POS=.01*GAME_HEIGHT;
+const std::string GAME_OVER_MESSAGE = "Game Over";
+const int GAME_OVER_X_POS=GAME_WIDTH/2;
+const int GAME_OVER_Y_POS=GAME_HEIGHT/2;
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
 // it would be possible to save and restore key mappings from a data file.
