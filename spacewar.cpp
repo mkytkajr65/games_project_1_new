@@ -285,7 +285,9 @@ void Spacewar::releaseAll()
 	belichickTexture.onLostDevice();
 	footballTexture.onLostDevice();
 	myImageTexture.onLostDevice();
-
+	linemanTexture.onLostDevice();
+	meterTexture.onLostDevice();
+	lifeTexture.onLostDevice();
     Game::releaseAll();
     return;
 }
@@ -300,7 +302,9 @@ void Spacewar::resetAll()
 	belichickTexture.onResetDevice();
 	footballTexture.onResetDevice();
 	myImageTexture.onResetDevice();
-
+	linemanTexture.onResetDevice();
+	meterTexture.onResetDevice();
+	lifeTexture.onResetDevice();
     Game::resetAll();
     return;
 }
